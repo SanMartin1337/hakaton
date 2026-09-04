@@ -116,15 +116,34 @@ async def logout():
     response.delete_cookie("access_token")
     return response
 
+
+from app.models.user import User
+from fastapi.responses import RedirectResponse
+
+
 @app.get("/people")
-async def people_page(request: Request):
-    current_user = get_current_user_from_cookie(request, next(get_db()))
-    if not current_user:
-        return RedirectResponse(url="/login")
+async def people_page(request: Request, db: Session = Depends(get_db)):
+    user = get_current_user_from_cookie(request, db)
+    if not user:
+        return RedirectResponse(url="/login", status_code=303)
+
+    people = db.query(User).filter(User.id != user.id).all()
+
     return templates.TemplateResponse("people.html", {
         "request": request,
-        "user": current_user
+        "user": user,
+        "people": people
     })
+
+
+
+@app.get("/projects")
+async def projects_page(request: Request, db: Session = Depends(get_db)):
+    user = get_current_user_from_cookie(request, db)
+    if not user:
+        return RedirectResponse(url="/login", status_code=303)
+
+    return templates.TemplateResponse("projects.html", {"request": request, "user": user})
 
 
 # =========================================
