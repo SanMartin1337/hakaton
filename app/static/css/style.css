@@ -26,7 +26,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 1px solid #eef2f6;
+    border-bottom: 2px solid #fed7aa;
 }
 
 .navbar .container {
@@ -68,16 +68,17 @@ body {
 }
 
 .nav-link {
-    color: #4a5568;
+    color: #c2410c;
     text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 0.01em;
     transition: color 0.2s;
     position: relative;
 }
 
 .nav-link:hover {
-    color: #2d3e50;
+    color: #9a3412;
 }
 
 .nav-link::after {
@@ -86,8 +87,8 @@ body {
     bottom: -4px;
     left: 0;
     width: 0;
-    height: 2px;
-    background: #2d3e50;
+    height: 3px;
+    background: #ea580c;
     transition: width 0.2s;
 }
 
@@ -102,9 +103,9 @@ body {
 }
 
 .lang-switch {
-    color: #4a5568;
+    color: #c2410c;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 900;
     cursor: pointer;
     padding: 6px 12px;
     border-radius: 8px;
@@ -112,22 +113,24 @@ body {
 }
 
 .lang-switch:hover {
-    background: #f1f4f9;
+    background: #fff7ed;
 }
 
 .btn-login {
     padding: 10px 28px;
-    background: #2d3e50;
+    background: #c2410c;
     color: white;
     border-radius: 10px;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 900;
     font-size: 15px;
+    letter-spacing: 0.01em;
     transition: all 0.2s;
 }
 
 .btn-login:hover {
-    background: #1a2a3a;
+    background: #9a3412;
+    box-shadow: 0 4px 12px rgba(194, 65, 12, 0.3);
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(45, 62, 80, 0.25);
 }
@@ -150,8 +153,8 @@ body {
 }
 
 .user-info {
-    color: #2d3e50;
-    font-weight: 500;
+    color: #c2410c;
+    font-weight: 800;
     font-size: 14px;
     text-decoration: none;
     position: relative;
@@ -166,7 +169,7 @@ body {
     left: 0;
     width: 0;
     height: 2px;
-    background: #2d3e50;
+    background: #c2410c;
     transition: width 0.2s;
 }
 
@@ -183,8 +186,8 @@ body {
 }
 
 .hero-content {
-    flex: 1 1 40%;
-    max-width: 44%;
+    flex: 1 1 30%;
+    max-width: 32%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -261,7 +264,7 @@ body {
 
 .hero-image {
     position: relative;
-    flex: 1 1 60%;
+    flex: 1 1 70%;
     min-height: 320px;
     overflow: hidden;
 }
@@ -279,14 +282,47 @@ body {
     top: 0;
     left: 0;
     bottom: 0;
-    width: 55%;
+    width: 75%;
+    backdrop-filter: blur(60px);
+    -webkit-backdrop-filter: blur(60px);
+    -webkit-mask-image: linear-gradient(
+        to right,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,1) 8%,
+        rgba(0,0,0,0.85) 20%,
+        rgba(0,0,0,0.6) 35%,
+        rgba(0,0,0,0.35) 55%,
+        rgba(0,0,0,0.15) 75%,
+        rgba(0,0,0,0) 100%
+    );
+    mask-image: linear-gradient(
+        to right,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,1) 8%,
+        rgba(0,0,0,0.85) 20%,
+        rgba(0,0,0,0.6) 35%,
+        rgba(0,0,0,0.35) 55%,
+        rgba(0,0,0,0.15) 75%,
+        rgba(0,0,0,0) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hero-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 75%;
     background: linear-gradient(
         to right,
         #edf2f7 0%,
-        rgba(237, 242, 247, 0.92) 10%,
-        rgba(237, 242, 247, 0.72) 25%,
-        rgba(237, 242, 247, 0.45) 45%,
-        rgba(237, 242, 247, 0.2) 70%,
+        rgba(237, 242, 247, 0.85) 10%,
+        rgba(237, 242, 247, 0.6) 25%,
+        rgba(237, 242, 247, 0.38) 45%,
+        rgba(237, 242, 247, 0.18) 70%,
         rgba(237, 242, 247, 0) 100%
     );
     pointer-events: none;
@@ -967,14 +1003,39 @@ body {
 
     .hero-image::before {
         width: 100%;
-        height: 45%;
+        height: 60%;
+        -webkit-mask-image: linear-gradient(
+            to bottom,
+            rgba(0,0,0,1) 0%,
+            rgba(0,0,0,1) 8%,
+            rgba(0,0,0,0.85) 20%,
+            rgba(0,0,0,0.6) 35%,
+            rgba(0,0,0,0.35) 55%,
+            rgba(0,0,0,0.15) 75%,
+            rgba(0,0,0,0) 100%
+        );
+        mask-image: linear-gradient(
+            to bottom,
+            rgba(0,0,0,1) 0%,
+            rgba(0,0,0,1) 8%,
+            rgba(0,0,0,0.85) 20%,
+            rgba(0,0,0,0.6) 35%,
+            rgba(0,0,0,0.35) 55%,
+            rgba(0,0,0,0.15) 75%,
+            rgba(0,0,0,0) 100%
+        );
+    }
+
+    .hero-image::after {
+        width: 100%;
+        height: 60%;
         background: linear-gradient(
             to bottom,
             #edf2f7 0%,
-            rgba(237, 242, 247, 0.92) 10%,
-            rgba(237, 242, 247, 0.72) 25%,
-            rgba(237, 242, 247, 0.45) 45%,
-            rgba(237, 242, 247, 0.2) 70%,
+            rgba(237, 242, 247, 0.85) 10%,
+            rgba(237, 242, 247, 0.6) 25%,
+            rgba(237, 242, 247, 0.38) 45%,
+            rgba(237, 242, 247, 0.18) 70%,
             rgba(237, 242, 247, 0) 100%
         );
     }
@@ -1468,52 +1529,5 @@ body {
         filter: blur(12px);
     }
 }
-/* ===== Шапка на страницах входа и регистрации ===== */
-.navbar--auth {
-    border-bottom: 2px solid #fed7aa;
-}
-
-.navbar--auth .nav-link {
-    color: #c2410c;
-    font-weight: 900;
-    font-size: 16px;
-    letter-spacing: 0.01em;
-}
-
-.navbar--auth .nav-link:hover {
-    color: #9a3412;
-}
-
-.navbar--auth .nav-link::after {
-    height: 3px;
-    background: #ea580c;
-}
-
-.navbar--auth .lang-switch {
-    color: #c2410c;
-    font-weight: 900;
-}
-
-.navbar--auth .lang-switch:hover {
-    background: #fff7ed;
-}
-
-.navbar--auth .btn-login {
-    background: #c2410c;
-    font-weight: 900;
-    letter-spacing: 0.01em;
-}
-
-.navbar--auth .btn-login:hover {
-    background: #9a3412;
-    box-shadow: 0 4px 12px rgba(194, 65, 12, 0.3);
-}
-
-.navbar--auth .user-info {
-    color: #c2410c;
-    font-weight: 800;
-}
-
-.navbar--auth .user-info::after {
-    background: #c2410c;
-}
+/* ===== Шапка ===== */
+/* Оранжевый жирный стиль навбара теперь общий для всех страниц: см. .nav-link, .lang-switch, .btn-login, .user-info выше */
