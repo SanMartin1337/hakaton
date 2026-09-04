@@ -4,19 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Campus Connect — УрФУ{% endblock %}</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css?v=3">
     <!-- Подключаем шрифты -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    {% set path = request.url.path %}
+    {% set is_auth_page = path in ['/login', '/register'] %}
+    {% set is_app_page = path in ['/dashboard', '/profile', '/people'] %}
+
     <!-- Навигация -->
-    <nav class="navbar">
+    <nav class="navbar{% if is_auth_page %} navbar--auth{% elif is_app_page %} navbar--app{% endif %}">
         <div class="container">
             <div class="navbar-left">
-                <a href="/">
+                <a href="{% if is_app_page %}/dashboard{% else %}/{% endif %}">
                     <img src="/static/images/logo.png" style="height: 90px;" alt="Campus Connect">
                 </a>
             </div>
+
+            {% if not is_app_page %}
             <div class="navbar-center">
                 <a href="/#about" class="nav-link">О платформе</a>
                 <a href="/#features" class="nav-link">Возможности</a>
@@ -24,15 +30,21 @@
                 <a href="/#faq" class="nav-link">FAQ</a>
                 <a href="/#help" class="nav-link">Помощь</a>
             </div>
+            {% endif %}
+
             <div class="navbar-right">
-                <span class="lang-switch">RU</span>
-                <span id="navbar-guest">
-                    <a href="/login" class="btn-login">Войти</a>
-                </span>
-                <span id="navbar-user" class="hidden">
-                    <a href="/profile" class="user-info">👤 <span id="navbar-user-name"></span></a>
+                {% if is_app_page %}
                     <a href="/logout" class="btn-logout">Выйти</a>
-                </span>
+                {% else %}
+                    <span class="lang-switch">RU</span>
+                    <span id="navbar-guest">
+                        <a href="/login" class="btn-login">Войти</a>
+                    </span>
+                    <span id="navbar-user" class="hidden">
+                        <a href="/profile" class="user-info">👤 <span id="navbar-user-name"></span></a>
+                        <a href="/logout" class="btn-logout">Выйти</a>
+                    </span>
+                {% endif %}
             </div>
         </div>
     </nav>
