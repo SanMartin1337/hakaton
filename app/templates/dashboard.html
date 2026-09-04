@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}Личный кабинет — Campus Connect{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Левая панель -->
+    <aside class="dashboard-sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-icon">🏛️</span>
+            <span class="brand-text">CAMPUS CONNECT</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active">Главная</a>
+            <a href="/people" class="nav-item">Люди</a>
+            <a href="#" class="nav-item">Проекты</a>
+            <a href="#" class="nav-item">События</a>
+            <a href="#" class="nav-item">Сейчас в кампусе</a>
+            <a href="/profile" class="nav-item">Профиль</a>
+        </nav>
+
+        <!-- Сообщества без цифр (только названия) -->
+        <div class="sidebar-communities">
+            <h4>Сообщества</h4>
+            <div class="community-item">
+                <span class="community-icon">🏀</span>
+                <span>Basketball Club</span>
+            </div>
+            <div class="community-item">
+                <span class="community-icon">💻</span>
+                <span>IT Community</span>
+            </div>
+            <div class="community-item">
+                <span class="community-icon">🎨</span>
+                <span>Design Club</span>
+            </div>
+            <div class="community-item">
+                <span class="community-icon">🎮</span>
+                <span>GameDev</span>
+            </div>
+            <div class="community-item">
+                <span class="community-icon">🚀</span>
+                <span>Entrepreneurship</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Основной контент -->
+    <main class="dashboard-main">
+        <!-- Приветствие -->
+        <div class="welcome-section">
+            <h1>Привет, <span id="userName">{{ user.full_name or 'Студент' }}</span>!</h1>
+            <p>Вот что происходит в твоём кампусе</p>
+        </div>
+
+        <!-- Карточки "Чем хочешь заняться" -->
+        <section class="activity-section">
+            <h2>Чем хочешь заняться?</h2>
+            <div class="activity-grid">
+                <div class="activity-card">
+                    <span class="activity-icon">📋</span>
+                    <span>Подходящие проекты</span>
+                </div>
+                <div class="activity-card">
+                    <span class="activity-icon">📅</span>
+                    <span>Интересные события</span>
+                </div>
+                <div class="activity-card">
+                    <span class="activity-icon">👥</span>
+                    <span>Люди, с которыми стоит познакомиться</span>
+                </div>
+                <div class="activity-card">
+                    <span class="activity-icon">🌟</span>
+                    <span>Популярные сообщества</span>
+                </div>
+            </div>
+            <div class="activity-actions">
+                <a href="#" class="action-link">Смотреть всё →</a>
+            </div>
+        </section>
+
+        <!-- Блоки с контентом (пустые заглушки) -->
+        <section class="content-grid">
+            <div class="content-card">
+                <div class="card-header">
+                    <h3>Подходящие проекты</h3>
+                    <a href="#" class="card-link">Смотреть</a>
+                </div>
+                <p class="empty-placeholder">Пока нет проектов</p>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header">
+                    <h3>Интересные события</h3>
+                    <a href="#" class="card-link">Смотреть</a>
+                </div>
+                <p class="empty-placeholder">Пока нет событий</p>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header">
+                    <h3>Люди, с которыми стоит познакомиться</h3>
+                    <a href="#" class="card-link">Смотреть</a>
+                </div>
+                <p class="empty-placeholder">Пока нет рекомендаций</p>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header">
+                    <h3>Популярные сообщества</h3>
+                    <a href="#" class="card-link">Смотреть</a>
+                </div>
+                <p class="empty-placeholder">Присоединяйся к сообществам!</p>
+            </div>
+        </section>
+
+        <!-- Действия -->
+        <section class="actions-section">
+            <div class="action-card blue">
+                <span class="action-icon">➕</span>
+                <div>
+                    <h3>Создать проект или событие</h3>
+                    <p>Запусти идею или мероприятие</p>
+                </div>
+            </div>
+            <div class="action-card green">
+                <span class="action-icon">👫</span>
+                <div>
+                    <h3>Пригласи друзей</h3>
+                    <p>и развивай кампус вместе!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок "Сейчас в кампусе" полностью УДАЛЁН -->
+    </main>
+</div>
+{% endblock %}

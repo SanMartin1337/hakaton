@@ -82,12 +82,12 @@ async function register(event) {
                 window.location.href = '/login';
             }, 2000);
         } else {
-            showAlert(alert, ' ' + data.detail, 'error');
+            showAlert(alert, '❌ ' + data.detail, 'error');
             button.disabled = false;
             button.textContent = 'Зарегистрироваться';
         }
     } catch (error) {
-        showAlert(alert, ' Ошибка подключения к серверу', 'error');
+        showAlert(alert, '❌ Ошибка подключения к серверу', 'error');
         button.disabled = false;
         button.textContent = 'Зарегистрироваться';
     }
