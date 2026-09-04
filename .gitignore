@@ -1,0 +1,38 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# ===== Виртуальное окружение =====
+venv/
+.venv/
+env/
+ENV/
+
+# ===== Переменные окружения / секреты =====
+.env
+.env.*
+!.env.example
+
+# ===== База данных =====
+*.db
+*.sqlite3
+app.db
+
+# ===== IDE =====
+.idea/
+.vscode/
+*.swp
+
+# ===== ОС =====
+.DS_Store
+Thumbs.db
+
+# ===== Логи =====
+*.log
+
+# ===== Сборки/дистрибутивы =====
+build/
+dist/
+*.egg-info/
