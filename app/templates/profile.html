@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}Личный кабинет — Campus Connect{% endblock %}
+
+{% block content %}
+<section class="profile-hero">
+    <img src="/static/images/urfu2-kampus.jpg" alt="Кампус УрФУ" class="profile-hero-bg">
+
+    <div class="profile-hero-blur profile-hero-blur--top"></div>
+    <div class="profile-hero-blur profile-hero-blur--bottom"></div>
+    <div class="profile-hero-blur profile-hero-blur--left"></div>
+    <div class="profile-hero-blur profile-hero-blur--right"></div>
+    <div class="profile-hero-overlay"></div>
+
+    <div class="profile-card">
+        <div class="profile-avatar" id="profile-avatar">И</div>
+        <h1 id="profile-name">Загрузка...</h1>
+        <p class="profile-email" id="profile-email"></p>
+
+        <div class="profile-stats">
+            <div class="profile-stat">
+                <span class="profile-stat-label">Институт</span>
+                <span class="profile-stat-value" id="profile-institute">—</span>
+            </div>
+            <div class="profile-stat">
+                <span class="profile-stat-label">Группа</span>
+                <span class="profile-stat-value" id="profile-group">—</span>
+            </div>
+        </div>
+
+        <div class="profile-actions">
+            <a href="/#features" class="btn-secondary-light">Возможности платформы</a>
+            <a href="#" onclick="logout()" class="btn-logout-light">Выйти из аккаунта</a>
+        </div>
+    </div>
+</section>
+
+<!-- Мини-виджет AI-помощника -->
+<div class="ai-widget">
+    <button class="ai-widget-toggle" id="ai-widget-toggle" aria-label="Открыть AI-помощника">
+        <span class="ai-widget-toggle-icon">🤖</span>
+    </button>
+
+    <div class="ai-widget-window hidden" id="ai-widget-window">
+        <div class="ai-widget-header">
+            <span class="ai-widget-header-icon">🤖</span>
+            <div>
+                <div class="ai-widget-title">AI-помощник</div>
+                <div class="ai-widget-subtitle">Campus Connect</div>
+            </div>
+            <button class="ai-widget-close" id="ai-widget-close" aria-label="Закрыть">×</button>
+        </div>
+
+        <div class="ai-widget-messages" id="ai-widget-messages">
+            <div class="ai-widget-msg ai-widget-msg--bot">
+                Привет! Я помогу с вопросами об УрФУ, кампусе и учёбе. Спроси что-нибудь 🙂
+            </div>
+        </div>
+
+        <form class="ai-widget-input-row" id="ai-widget-form">
+            <input type="text" id="ai-widget-input" placeholder="Напиши сообщение..." autocomplete="off">
+            <button type="submit" class="ai-widget-send" aria-label="Отправить">➤</button>
+        </form>
+    </div>
+</div>
+
+<script>
+(async function() {
+    const token = localStorage.getItem('access_token');
+    if (!token) return;
+
+    try {
+        const response = await fetch('/api/v1/auth/me', {
+            headers: { 'Authorization': 'Bearer ' + token }
+        });
+        if (!response.ok) return;
+
+        const user = await response.json();
+        document.getElementById('profile-name').textContent = user.full_name;
+        document.getElementById('profile-email').textContent = user.email;
+        document.getElementById('profile-institute').textContent = user.institute;
+        document.getElementById('profile-group').textContent = user.group_number;
+
+        const initial = (user.full_name || '?').trim().charAt(0).toUpperCase();
+        document.getElementById('profile-avatar').textContent = initial || '?';
+    } catch (error) {
+        console.error('Не удалось загрузить профиль', error);
+    }
+})();
+
+// AI-виджет
+const aiToggle = document.getElementById('ai-widget-toggle');
+const aiWindow = document.getElementById('ai-widget-window');
+const aiClose = document.getElementById('ai-widget-close');
+const aiForm = document.getElementById('ai-widget-form');
+const aiInput = document.getElementById('ai-widget-input');
+const aiMessages = document.getElementById('ai-widget-messages');
+
+aiToggle.addEventListener('click', () => {
+    aiWindow.classList.toggle('hidden');
+    if (!aiWindow.classList.contains('hidden')) {
+        aiInput.focus();
+    }
+});
+
+aiClose.addEventListener('click', () => {
+    aiWindow.classList.add('hidden');
+});
+
+function addMessage(text, sender) {
+    const el = document.createElement('div');
+    el.className = 'ai-widget-msg ai-widget-msg--' + sender;
+    el.textContent = text;
+    aiMessages.appendChild(el);
+    aiMessages.scrollTop = aiMessages.scrollHeight;
+}
+
+aiForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const question = aiInput.value.trim();
+    if (!question) return;
+
+    addMessage(question, 'user');
+    aiInput.value = '';
+
+    const typingEl = document.createElement('div');
+    typingEl.className = 'ai-widget-msg ai-widget-msg--bot ai-widget-msg--typing';
+    typingEl.textContent = 'Печатает...';
+    aiMessages.appendChild(typingEl);
+    aiMessages.scrollTop = aiMessages.scrollHeight;
+
+    const token = localStorage.getItem('access_token');
+    try {
+        const response = await fetch('/api/v1/chat/ask?question=' + encodeURIComponent(question), {
+            method: 'POST',
+            headers: { 'Authorization': 'Bearer ' + token }
+        });
+        typingEl.remove();
+
+        if (response.ok) {
+            const data = await response.json();
+            addMessage(data.reply, 'bot');
+        } else {
+            addMessage('Не получилось получить ответ. Попробуй ещё раз.', 'bot');
+        }
+    } catch (error) {
+        typingEl.remove();
+        addMessage('Ошибка подключения к серверу.', 'bot');
+    }
+});
+</script>
+{% endblock %}

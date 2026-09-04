@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация — Campus Connect{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="logo">
+                <span class="icon">🎓</span>
+                <h2>Регистрация</h2>
+                <p>Присоединяйся к сообществу УрФУ</p>
+            </div>
+
+            <form id="registerForm" onsubmit="register(event)">
+                <div class="form-group">
+                    <label>Полное имя</label>
+                    <input type="text" id="full_name" placeholder="Иван Петров" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" placeholder="student@urfu.ru" required>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="password" placeholder="••••••••" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Институт</label>
+                    <input type="text" id="institute" placeholder="ИРИТ-РТФ" required>
+                </div>
+                <div class="form-group">
+                    <label>Группа</label>
+                    <input type="text" id="group_number" placeholder="РИ-160934" required>
+                </div>
+                <div id="alert" class="hidden"></div>
+                <button type="submit" class="btn-submit">Зарегистрироваться</button>
+            </form>
+
+            <div class="auth-footer">
+                Уже есть аккаунт? <a href="/login">Войти</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+async function register(event) {
+    event.preventDefault();
+
+    const full_name = document.getElementById('full_name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const institute = document.getElementById('institute').value;
+    const group_number = document.getElementById('group_number').value;
+    const alert = document.getElementById('alert');
+    const button = document.querySelector('.btn-submit');
+
+    button.disabled = true;
+    button.textContent = 'Регистрация...';
+
+    try {
+        const response = await fetch('/api/v1/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                full_name,
+                email,
+                password,
+                institute,
+                group_number
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            showAlert(alert, '✅ Регистрация успешна! Перенаправляем на вход...', 'success');
+            setTimeout(() => {
+                window.location.href = '/login';
+            }, 2000);
+        } else {
+            showAlert(alert, ' ' + data.detail, 'error');
+            button.disabled = false;
+            button.textContent = 'Зарегистрироваться';
+        }
+    } catch (error) {
+        showAlert(alert, ' Ошибка подключения к серверу', 'error');
+        button.disabled = false;
+        button.textContent = 'Зарегистрироваться';
+    }
+}
+
+function showAlert(element, message, type) {
+    element.classList.remove('hidden', 'alert-error', 'alert-success');
+    element.classList.add('alert', 'alert-' + type);
+    element.textContent = message;
+}
+</script>
+{% endblock %}

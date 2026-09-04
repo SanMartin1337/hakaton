@@ -44,7 +44,3 @@ async def register_page(request: Request):
 @app.get("/login-form")
 async def login_form_page(request: Request):
     return templates.TemplateResponse("login.html", {"request": request, "user": None})
-
-@app.get("/profile")
-async def profile_page(request: Request):
-    return templates.TemplateResponse("profile.html", {"request": request, "user": None})
