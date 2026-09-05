@@ -1,0 +1,1183 @@
+{% extends "base.html" %}
+
+{% block title %}События — Campus Connect{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Левая панель -->
+    <aside class="dashboard-sidebar">
+        <div class="sidebar-brand">
+            <svg class="brand-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 21h18M5 21V7l8-4 8 4v14M13 21v-8a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v8"/>
+            </svg>
+            <span class="brand-text">CAMPUS CONNECT</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/>
+                </svg>
+                <span>Главная</span>
+            </a>
+            <a href="/people" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <span>Люди</span>
+            </a>
+            <a href="/projects" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                </svg>
+                <span>Проекты</span>
+            </a>
+            <a href="/events" class="nav-item active">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <span>События</span>
+            </a>
+            <a href="#" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                </svg>
+                <span>Сейчас в кампусе</span>
+            </a>
+            <a href="/profile" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+                <span>Профиль</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-communities">
+            <h4>Сообщества</h4>
+            <a href="#" class="community-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                <span>Basketball Club</span>
+            </a>
+            <a href="#" class="community-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                <span>IT Community</span>
+            </a>
+            <a href="#" class="community-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/></svg>
+                <span>Design Club</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Основной контент -->
+    <main class="dashboard-main">
+        <!-- Приветствие -->
+        <div class="welcome-section-modern">
+            <div class="welcome-content">
+                <div class="welcome-greeting">
+                    <h1>События кампуса</h1>
+                    <p class="welcome-subtitle">Мероприятия, встречи и активности для студентов УрФУ</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Поиск и фильтры -->
+        <section class="events-filters">
+            <div class="search-wrapper">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <input type="text" id="eventsSearch" placeholder="Поиск по названию, месту или тегам..." class="search-input">
+            </div>
+            <div class="filter-tags" id="categoryFilters">
+                <button class="filter-tag active" data-category="all">Все</button>
+                <button class="filter-tag" data-category="IT">IT</button>
+                <button class="filter-tag" data-category="Спорт">Спорт</button>
+                <button class="filter-tag" data-category="Наука">Наука</button>
+                <button class="filter-tag" data-category="Карьера">Карьера</button>
+                <button class="filter-tag" data-category="Сообщества">Сообщества</button>
+                <button class="filter-tag" data-category="Культура">Культура</button>
+                <button class="filter-tag" data-category="Волонтерство">Волонтерство</button>
+                <button class="filter-tag" data-category="Проекты">Проекты</button>
+                <button class="filter-tag" data-category="Образование">Образование</button>
+                <button class="filter-tag" data-category="Стартапы">Стартапы</button>
+            </div>
+        </section>
+
+        <!-- Сетка событий -->
+        <section class="events-section">
+            <div class="events-grid" id="eventsGrid">
+
+                <!-- ID: 1 -->
+                <div class="event-card" data-category="Студенческая жизнь" data-tags="Campus Connect; первокурсники; знакомства" data-name="Знакомство с Campus Connect" data-place="Главный холл кампуса" data-date="07.09.2026">
+                    <button class="event-fav-btn" data-event-id="1" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">07</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Студенческая жизнь</div>
+                        <h3 class="event-title">Знакомство с Campus Connect</h3>
+                        <p class="event-description">Презентация сервиса Campus Connect: проекты, сообщества, события, рекомендации и AI-помощник.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>18:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Главный холл кампуса</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 2 -->
+                <div class="event-card" data-category="Спорт" data-tags="баскетбол; спорт; тренировка" data-name="Открытая тренировка по баскетболу" data-place="Спортивный комплекс УрФУ" data-date="08.09.2026">
+                    <button class="event-fav-btn" data-event-id="2" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">08</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Спорт</div>
+                        <h3 class="event-title">Открытая тренировка по баскетболу</h3>
+                        <p class="event-description">Открытая тренировка и знакомство со студенческими баскетбольными командами.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>19:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Спортивный комплекс УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 3 -->
+                <div class="event-card" data-category="Сообщества" data-tags="настольные игры; знакомства; сообщества" data-name="Вечер настольных игр" data-place="Студенческий центр" data-date="09.09.2026">
+                    <button class="event-fav-btn" data-event-id="3" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">09</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Сообщества</div>
+                        <h3 class="event-title">Вечер настольных игр</h3>
+                        <p class="event-description">Неформальный вечер знакомств через настольные игры и командные активности.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>18:30</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Студенческий центр</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 4 -->
+                <div class="event-card" data-category="IT" data-tags="frontend; HTML; CSS; JavaScript" data-name="Frontend за один вечер" data-place="Технопарк УрФУ" data-date="10.09.2026">
+                    <button class="event-fav-btn" data-event-id="4" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">10</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">IT</div>
+                        <h3 class="event-title">Frontend за один вечер</h3>
+                        <p class="event-description">Практический воркшоп по HTML, CSS и базовому JavaScript.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>18:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Технопарк УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 5 -->
+                <div class="event-card" data-category="Образование" data-tags="ИРИТ-РТФ; первокурсники; учеба" data-name="Welcome-встреча первокурсников ИРИТ-РТФ" data-place="Учебный корпус ИРИТ-РТФ" data-date="11.09.2026">
+                    <button class="event-fav-btn" data-event-id="5" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">11</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Образование</div>
+                        <h3 class="event-title">Welcome-встреча первокурсников ИРИТ-РТФ</h3>
+                        <p class="event-description">Знакомство с институтом, учебными сервисами, организациями и проектными возможностями.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>17:30</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Учебный корпус ИРИТ-РТФ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 6 -->
+                <div class="event-card" data-category="Стартапы" data-tags="стартапы; питчи; команды" data-name="Campus Startup Meetup" data-place="Коворкинг УрФУ" data-date="12.09.2026">
+                    <button class="event-fav-btn" data-event-id="6" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">12</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Стартапы</div>
+                        <h3 class="event-title">Campus Startup Meetup</h3>
+                        <p class="event-description">Короткие питчи студенческих идей и поиск участников в команды.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>17:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Коворкинг УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 7 -->
+                <div class="event-card" data-category="Медиа" data-tags="фото; медиа; дизайн" data-name="Фотопрогулка по кампусу" data-place="Главная площадь кампуса" data-date="13.09.2026">
+                    <button class="event-fav-btn" data-event-id="7" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">13</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Медиа</div>
+                        <h3 class="event-title">Фотопрогулка по кампусу</h3>
+                        <p class="event-description">Практическая прогулка для студентов, интересующихся фотографией и визуальным контентом.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>16:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Главная площадь кампуса</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 8 -->
+                <div class="event-card" data-category="Волонтерство" data-tags="волонтерство; активисты" data-name="Открытая встреча «Волонтеры Урала»" data-place="Студенческий центр" data-date="14.09.2026">
+                    <button class="event-fav-btn" data-event-id="8" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">14</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Волонтерство</div>
+                        <h3 class="event-title">Открытая встреча «Волонтеры Урала»</h3>
+                        <p class="event-description">Знакомство с волонтерскими направлениями и набором на ближайшие события.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>18:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Студенческий центр</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 9 -->
+                <div class="event-card" data-category="Развлечения" data-tags="квиз; история УрФУ; команды" data-name="Квиз «Знаешь ли ты УрФУ?»" data-place="Коворкинг УрФУ" data-date="15.09.2026">
+                    <button class="event-fav-btn" data-event-id="9" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">15</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Развлечения</div>
+                        <h3 class="event-title">Квиз «Знаешь ли ты УрФУ?»</h3>
+                        <p class="event-description">Командный квиз об истории университета, кампусе, сленге и традициях.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>18:30</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Коворкинг УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 10 -->
+                <div class="event-card" data-category="Киберспорт" data-tags="киберспорт; игры; турниры" data-name="Киберспортивный вечер" data-place="Киберспортивная зона УрФУ" data-date="16.09.2026">
+                    <button class="event-fav-btn" data-event-id="10" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">16</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Киберспорт</div>
+                        <h3 class="event-title">Киберспортивный вечер</h3>
+                        <p class="event-description">Открытые матчи, мини-турниры и знакомство с киберспортивным сообществом.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>18:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Киберспортивная зона УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 11 -->
+                <div class="event-card" data-category="Карьера" data-tags="карьера; стажировка; резюме" data-name="Как попасть на стажировку без опыта" data-place="Коворкинг УрФУ" data-date="17.09.2026">
+                    <button class="event-fav-btn" data-event-id="11" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">17</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Карьера</div>
+                        <h3 class="event-title">Как попасть на стажировку без опыта</h3>
+                        <p class="event-description">Разбор резюме, портфолио и способов найти первую стажировку.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>18:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Коворкинг УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 12 -->
+                <div class="event-card" data-category="Наука" data-tags="наука; лаборатории; исследования" data-name="Научный speed dating" data-place="Научная библиотека УрФУ" data-date="18.09.2026">
+                    <button class="event-fav-btn" data-event-id="12" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">18</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Наука</div>
+                        <h3 class="event-title">Научный speed dating</h3>
+                        <p class="event-description">Короткие знакомства с научными направлениями и лабораториями.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>17:30</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Научная библиотека УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 13 -->
+                <div class="event-card" data-category="IT" data-tags="хакатон; данные; разработка" data-name="Хакатон Campus Data" data-place="Технопарк УрФУ" data-date="19.09.2026">
+                    <button class="event-fav-btn" data-event-id="13" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">19</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">IT</div>
+                        <h3 class="event-title">Хакатон Campus Data</h3>
+                        <p class="event-description">Командная разработка прототипов на данных о студенческой жизни и кампусе.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>10:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Технопарк УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 14 -->
+                <div class="event-card" data-category="Дизайн" data-tags="дизайн; UI; UX; Figma" data-name="Открытый день Design Hub" data-place="Коворкинг УрФУ" data-date="20.09.2026">
+                    <button class="event-fav-btn" data-event-id="14" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">20</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Дизайн</div>
+                        <h3 class="event-title">Открытый день Design Hub</h3>
+                        <p class="event-description">Разбор интерфейсов, знакомство с UI/UX и поиск дизайнеров в команды.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>17:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Коворкинг УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 15 -->
+                <div class="event-card" data-category="Образование" data-tags="БРС; оценки; учеба" data-name="Как устроена БРС" data-place="Лекционный зал УрФУ" data-date="21.09.2026">
+                    <button class="event-fav-btn" data-event-id="15" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">21</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Образование</div>
+                        <h3 class="event-title">Как устроена БРС</h3>
+                        <p class="event-description">Разбор балльно-рейтинговой системы и принципов выставления итогов.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>18:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Лекционный зал УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 16 -->
+                <div class="event-card" data-category="Наука" data-tags="лаборатории; исследования" data-name="Экскурсия по лабораториям УрФУ" data-place="Научно-лабораторный корпус" data-date="22.09.2026">
+                    <button class="event-fav-btn" data-event-id="16" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">22</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Наука</div>
+                        <h3 class="event-title">Экскурсия по лабораториям УрФУ</h3>
+                        <p class="event-description">Знакомство с лабораториями и исследовательскими командами.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>16:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Научно-лабораторный корпус</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 17 -->
+                <div class="event-card" data-category="Культура" data-tags="музыка; сцена; творчество" data-name="Открытый микрофон Campus Stage" data-place="Актовый зал УрФУ" data-date="23.09.2026">
+                    <button class="event-fav-btn" data-event-id="17" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">23</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Культура</div>
+                        <h3 class="event-title">Открытый микрофон Campus Stage</h3>
+                        <p class="event-description">Музыка, стендап, поэзия и короткие студенческие выступления.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>19:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Актовый зал УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 18 -->
+                <div class="event-card" data-category="Спорт" data-tags="спорт; настольный теннис" data-name="Турнир по настольному теннису" data-place="Спортивный зал УрФУ" data-date="24.09.2026">
+                    <button class="event-fav-btn" data-event-id="18" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">24</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Спорт</div>
+                        <h3 class="event-title">Турнир по настольному теннису</h3>
+                        <p class="event-description">Любительский турнир среди студентов.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>18:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Спортивный зал УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 19 -->
+                <div class="event-card" data-category="Сообщества" data-tags="языки; английский; клуб" data-name="Встреча клуба иностранных языков" data-place="Коворкинг УрФУ" data-date="25.09.2026">
+                    <button class="event-fav-btn" data-event-id="19" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">25</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Сообщества</div>
+                        <h3 class="event-title">Встреча клуба иностранных языков</h3>
+                        <p class="event-description">Разговорные столы, игры и языковая практика.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>18:30</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Коворкинг УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 20 -->
+                <div class="event-card" data-category="Карьера" data-tags="карьера; IT; компании" data-name="День карьеры IT" data-place="Технопарк УрФУ" data-date="26.09.2026">
+                    <button class="event-fav-btn" data-event-id="20" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">26</span>
+                        <span class="event-month">СЕН</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Карьера</div>
+                        <h3 class="event-title">День карьеры IT</h3>
+                        <p class="event-description">Встречи с компаниями и консультации по стажировкам и вакансиям.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>12:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Технопарк УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 25 -->
+                <div class="event-card" data-category="AI" data-tags="AI; нейросети; GigaChat" data-name="AI для учебы: без магии" data-place="Технопарк УрФУ" data-date="02.10.2026">
+                    <button class="event-fav-btn" data-event-id="25" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">02</span>
+                        <span class="event-month">ОКТ</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">AI</div>
+                        <h3 class="event-title">AI для учебы: без магии</h3>
+                        <p class="event-description">Практическая лекция о полезных сценариях AI и проверке ответов нейросетей.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>18:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Технопарк УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 40 -->
+                <div class="event-card" data-category="Традиции" data-tags="Хоровод УрФУ; традиции" data-name="Хоровод УрФУ" data-place="Площадь перед ГУК" data-date="19.10.2026">
+                    <button class="event-fav-btn" data-event-id="40" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">19</span>
+                        <span class="event-month">ОКТ</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Традиции</div>
+                        <h3 class="event-title">Хоровод УрФУ</h3>
+                        <p class="event-description">Традиционная университетская акция ко дню рождения УрФУ.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>17:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Площадь перед ГУК</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 42 -->
+                <div class="event-card" data-category="IT" data-tags="хакатон; умный кампус" data-name="Хакатон «Умный кампус»" data-place="Технопарк УрФУ" data-date="23.10.2026">
+                    <button class="event-fav-btn" data-event-id="42" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">23</span>
+                        <span class="event-month">ОКТ</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">IT</div>
+                        <h3 class="event-title">Хакатон «Умный кампус»</h3>
+                        <p class="event-description">Разработка решений для навигации, сервисов и инфраструктуры кампуса.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>10:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Технопарк УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 50 -->
+                <div class="event-card" data-category="IT" data-tags="Python; программирование" data-name="Мастер-класс по Python" data-place="Компьютерный класс" data-date="09.11.2026">
+                    <button class="event-fav-btn" data-event-id="50" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">09</span>
+                        <span class="event-month">НОЯ</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">IT</div>
+                        <h3 class="event-title">Мастер-класс по Python</h3>
+                        <p class="event-description">Введение в Python через небольшие практические задачи.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>18:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Компьютерный класс</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 60 -->
+                <div class="event-card" data-category="IT" data-tags="программирование; pet-project" data-name="Hack Night" data-place="Технопарк УрФУ" data-date="28.11.2026">
+                    <button class="event-fav-btn" data-event-id="60" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">28</span>
+                        <span class="event-month">НОЯ</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">IT</div>
+                        <h3 class="event-title">Hack Night</h3>
+                        <p class="event-description">Вечер совместного программирования и pet-проектов.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>18:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Технопарк УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID: 66 -->
+                <div class="event-card" data-category="Культура" data-tags="Новый год; концерт" data-name="Новогодний студенческий фестиваль" data-place="Актовый зал УрФУ" data-date="12.12.2026">
+                    <button class="event-fav-btn" data-event-id="66" title="Добавить в избранное">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </button>
+                    <div class="event-date-badge">
+                        <span class="event-day">12</span>
+                        <span class="event-month">ДЕК</span>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Культура</div>
+                        <h3 class="event-title">Новогодний студенческий фестиваль</h3>
+                        <p class="event-description">Концерт и праздничные активности студенческих коллективов.</p>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                                <span>18:00</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>Актовый зал УрФУ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ======================================================================= -->
+        <!-- AI KNOWLEDGE BASE (СКРЫТЫЙ БЛОК ДЛЯ НЕЙРОСЕТИ)                          -->
+        <!-- ======================================================================= -->
+        <div id="ai-knowledge-base" style="display: none !important;" aria-hidden="true">
+
+            <div class="ai-doc" data-topic="Знакомство с Campus Connect" data-category="Студенческая жизнь" data-date="07.09.2026" data-time="18:00" data-place="Главный холл кампуса" data-tags="Campus Connect; первокурсники; знакомства" data-source="urfu_events_demo">
+                Презентация сервиса Campus Connect: проекты, сообщества, события, рекомендации и AI-помощник.
+            </div>
+
+            <div class="ai-doc" data-topic="Открытая тренировка по баскетболу" data-category="Спорт" data-date="08.09.2026" data-time="19:00" data-place="Спортивный комплекс УрФУ" data-tags="баскетбол; спорт; тренировка" data-source="urfu_events_demo">
+                Открытая тренировка и знакомство со студенческими баскетбольными командами.
+            </div>
+
+            <div class="ai-doc" data-topic="Вечер настольных игр" data-category="Сообщества" data-date="09.09.2026" data-time="18:30" data-place="Студенческий центр" data-tags="настольные игры; знакомства; сообщества" data-source="urfu_events_demo">
+                Неформальный вечер знакомств через настольные игры и командные активности.
+            </div>
+
+            <div class="ai-doc" data-topic="Frontend за один вечер" data-category="IT" data-date="10.09.2026" data-time="18:00" data-place="Технопарк УрФУ" data-tags="frontend; HTML; CSS; JavaScript" data-source="urfu_events_demo">
+                Практический воркшоп по HTML, CSS и базовому JavaScript.
+            </div>
+
+            <div class="ai-doc" data-topic="Welcome-встреча первокурсников ИРИТ-РТФ" data-category="Образование" data-date="11.09.2026" data-time="17:30" data-place="Учебный корпус ИРИТ-РТФ" data-tags="ИРИТ-РТФ; первокурсники; учеба" data-source="urfu_events_demo">
+                Знакомство с институтом, учебными сервисами, организациями и проектными возможностями.
+            </div>
+
+            <div class="ai-doc" data-topic="Campus Startup Meetup" data-category="Стартапы" data-date="12.09.2026" data-time="17:00" data-place="Коворкинг УрФУ" data-tags="стартапы; питчи; команды" data-source="urfu_events_demo">
+                Короткие питчи студенческих идей и поиск участников в команды.
+            </div>
+
+            <div class="ai-doc" data-topic="Фотопрогулка по кампусу" data-category="Медиа" data-date="13.09.2026" data-time="16:00" data-place="Главная площадь кампуса" data-tags="фото; медиа; дизайн" data-source="urfu_events_demo">
+                Практическая прогулка для студентов, интересующихся фотографией и визуальным контентом.
+            </div>
+
+            <div class="ai-doc" data-topic="Открытая встреча Волонтеры Урала" data-category="Волонтерство" data-date="14.09.2026" data-time="18:00" data-place="Студенческий центр" data-tags="волонтерство; активисты" data-source="urfu_events_demo">
+                Знакомство с волонтерскими направлениями и набором на ближайшие события.
+            </div>
+
+            <div class="ai-doc" data-topic="Квиз Знаешь ли ты УрФУ" data-category="Развлечения" data-date="15.09.2026" data-time="18:30" data-place="Коворкинг УрФУ" data-tags="квиз; история УрФУ; команды" data-source="urfu_events_demo">
+                Командный квиз об истории университета, кампусе, сленге и традициях.
+            </div>
+
+            <div class="ai-doc" data-topic="Киберспортивный вечер" data-category="Киберспорт" data-date="16.09.2026" data-time="18:00" data-place="Киберспортивная зона УрФУ" data-tags="киберспорт; игры; турниры" data-source="urfu_events_demo">
+                Открытые матчи, мини-турниры и знакомство с киберспортивным сообществом.
+            </div>
+
+            <div class="ai-doc" data-topic="Как попасть на стажировку без опыта" data-category="Карьера" data-date="17.09.2026" data-time="18:00" data-place="Коворкинг УрФУ" data-tags="карьера; стажировка; резюме" data-source="urfu_events_demo">
+                Разбор резюме, портфолио и способов найти первую стажировку.
+            </div>
+
+            <div class="ai-doc" data-topic="Научный speed dating" data-category="Наука" data-date="18.09.2026" data-time="17:30" data-place="Научная библиотека УрФУ" data-tags="наука; лаборатории; исследования" data-source="urfu_events_demo">
+                Короткие знакомства с научными направлениями и лабораториями.
+            </div>
+
+            <div class="ai-doc" data-topic="Хакатон Campus Data" data-category="IT" data-date="19.09.2026" data-time="10:00" data-place="Технопарк УрФУ" data-tags="хакатон; данные; разработка" data-source="urfu_events_demo">
+                Командная разработка прототипов на данных о студенческой жизни и кампусе.
+            </div>
+
+            <div class="ai-doc" data-topic="Открытый день Design Hub" data-category="Дизайн" data-date="20.09.2026" data-time="17:00" data-place="Коворкинг УрФУ" data-tags="дизайн; UI; UX; Figma" data-source="urfu_events_demo">
+                Разбор интерфейсов, знакомство с UI/UX и поиск дизайнеров в команды.
+            </div>
+
+            <div class="ai-doc" data-topic="Как устроена БРС" data-category="Образование" data-date="21.09.2026" data-time="18:00" data-place="Лекционный зал УрФУ" data-tags="БРС; оценки; учеба" data-source="urfu_events_demo">
+                Разбор балльно-рейтинговой системы и принципов выставления итогов.
+            </div>
+
+            <div class="ai-doc" data-topic="Экскурсия по лабораториям УрФУ" data-category="Наука" data-date="22.09.2026" data-time="16:00" data-place="Научно-лабораторный корпус" data-tags="лаборатории; исследования" data-source="urfu_events_demo">
+                Знакомство с лабораториями и исследовательскими командами.
+            </div>
+
+            <div class="ai-doc" data-topic="Открытый микрофон Campus Stage" data-category="Культура" data-date="23.09.2026" data-time="19:00" data-place="Актовый зал УрФУ" data-tags="музыка; сцена; творчество" data-source="urfu_events_demo">
+                Музыка, стендап, поэзия и короткие студенческие выступления.
+            </div>
+
+            <div class="ai-doc" data-topic="Турнир по настольному теннису" data-category="Спорт" data-date="24.09.2026" data-time="18:00" data-place="Спортивный зал УрФУ" data-tags="спорт; настольный теннис" data-source="urfu_events_demo">
+                Любительский турнир среди студентов.
+            </div>
+
+            <div class="ai-doc" data-topic="Встреча клуба иностранных языков" data-category="Сообщества" data-date="25.09.2026" data-time="18:30" data-place="Коворкинг УрФУ" data-tags="языки; английский; клуб" data-source="urfu_events_demo">
+                Разговорные столы, игры и языковая практика.
+            </div>
+
+            <div class="ai-doc" data-topic="День карьеры IT" data-category="Карьера" data-date="26.09.2026" data-time="12:00" data-place="Технопарк УрФУ" data-tags="карьера; IT; компании" data-source="urfu_events_demo">
+                Встречи с компаниями и консультации по стажировкам и вакансиям.
+            </div>
+
+            <div class="ai-doc" data-topic="AI для учебы без магии" data-category="AI" data-date="02.10.2026" data-time="18:00" data-place="Технопарк УрФУ" data-tags="AI; нейросети; GigaChat" data-source="urfu_events_demo">
+                Практическая лекция о полезных сценариях AI и проверке ответов нейросетей.
+            </div>
+
+            <div class="ai-doc" data-topic="Хоровод УрФУ" data-category="Традиции" data-date="19.10.2026" data-time="17:00" data-place="Площадь перед ГУК" data-tags="Хоровод УрФУ; традиции" data-source="urfu_events_demo">
+                Традиционная университетская акция ко дню рождения УрФУ.
+            </div>
+
+            <div class="ai-doc" data-topic="Хакатон Умный кампус" data-category="IT" data-date="23.10.2026" data-time="10:00" data-place="Технопарк УрФУ" data-tags="хакатон; умный кампус" data-source="urfu_events_demo">
+                Разработка решений для навигации, сервисов и инфраструктуры кампуса.
+            </div>
+
+            <div class="ai-doc" data-topic="Мастер-класс по Python" data-category="IT" data-date="09.11.2026" data-time="18:00" data-place="Компьютерный класс" data-tags="Python; программирование" data-source="urfu_events_demo">
+                Введение в Python через небольшие практические задачи.
+            </div>
+
+            <div class="ai-doc" data-topic="Hack Night" data-category="IT" data-date="28.11.2026" data-time="18:00" data-place="Технопарк УрФУ" data-tags="программирование; pet-project" data-source="urfu_events_demo">
+                Вечер совместного программирования и pet-проектов.
+            </div>
+
+            <div class="ai-doc" data-topic="Новогодний студенческий фестиваль" data-category="Культура" data-date="12.12.2026" data-time="18:00" data-place="Актовый зал УрФУ" data-tags="Новый год; концерт" data-source="urfu_events_demo">
+                Концерт и праздничные активности студенческих коллективов.
+            </div>
+
+        </div>
+        <!-- ======================================================================= -->
+    </main>
+</div>
+
+<!-- AI GigaChat Widget -->
+<div class="ai-widget" id="aiWidget">
+    <button class="ai-widget-toggle" id="aiWidgetToggle" title="Задать вопрос AI-помощнику">
+        <img src="/static/images/gigachat-logo.png" alt="GigaChat" class="gigachat-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="gigachat-icon-fallback" style="display: none;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+        </div>
+    </button>
+
+    <div class="ai-widget-window" id="aiWidgetWindow" style="display: none;">
+        <div class="ai-widget-header">
+            <div class="ai-widget-avatar">
+                <img src="/static/images/gigachat-logo.png" alt="GigaChat" class="gigachat-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="ai-widget-avatar-fallback" style="display: none;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="ai-widget-info">
+                <div class="ai-widget-title">GigaChat Помощник</div>
+                <div class="ai-widget-subtitle">Онлайн</div>
+            </div>
+            <button class="ai-widget-close" id="aiWidgetClose">×</button>
+        </div>
+
+        <div class="ai-widget-messages" id="aiWidgetMessages">
+            <div class="ai-widget-msg ai-widget-msg--bot">Привет! Я AI-помощник Campus Connect. Спроси меня о событиях, проектах или кампусе!</div>
+        </div>
+
+        <div class="ai-widget-suggestions" id="aiWidgetSuggestions">
+            <button class="suggestion-chip" data-message="Какие есть IT события?">IT события</button>
+            <button class="suggestion-chip" data-message="Когда хакатон?">Хакатон</button>
+            <button class="suggestion-chip" data-message="Что такое Хоровод УрФУ?">Хоровод УрФУ</button>
+            <button class="suggestion-chip" data-message="Расскажи про карьерные события">Карьера</button>
+        </div>
+
+        <div class="ai-widget-input-wrapper">
+            <input type="text" id="aiWidgetInput" placeholder="Напиши вопрос..." autocomplete="off">
+            <button class="ai-widget-send" id="aiWidgetSend">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // ===== AI Widget =====
+    const widgetToggle = document.getElementById('aiWidgetToggle');
+    const widgetWindow = document.getElementById('aiWidgetWindow');
+    const widgetClose = document.getElementById('aiWidgetClose');
+    const widgetInput = document.getElementById('aiWidgetInput');
+    const widgetSend = document.getElementById('aiWidgetSend');
+    const widgetMessages = document.getElementById('aiWidgetMessages');
+
+    widgetToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isHidden = widgetWindow.style.display === 'none' || !widgetWindow.style.display;
+        widgetWindow.style.display = isHidden ? 'flex' : 'none';
+        if (isHidden) setTimeout(() => widgetInput.focus(), 100);
+    });
+
+    widgetClose.addEventListener('click', function(e) {
+        e.stopPropagation();
+        widgetWindow.style.display = 'none';
+    });
+
+    function sendMessage(message) {
+        if (!message.trim()) return;
+        addMessage(message, 'user');
+        widgetInput.value = '';
+        showTypingIndicator();
+        setTimeout(() => {
+            removeTypingIndicator();
+            const response = generateMockResponse(message);
+            addMessage(response, 'bot');
+        }, 800 + Math.random() * 800);
+    }
+
+    function addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'ai-widget-msg ai-widget-msg--' + sender;
+        messageDiv.textContent = text;
+        widgetMessages.appendChild(messageDiv);
+        widgetMessages.scrollTop = widgetMessages.scrollHeight;
+    }
+
+    function showTypingIndicator() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'ai-widget-msg ai-widget-msg--bot ai-widget-msg--typing';
+        typingDiv.id = 'typingIndicator';
+        typingDiv.innerHTML = '<span class="typing-dots"><span></span><span></span><span></span></span>';
+        widgetMessages.appendChild(typingDiv);
+        widgetMessages.scrollTop = widgetMessages.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+        const indicator = document.getElementById('typingIndicator');
+        if (indicator) indicator.remove();
+    }
+
+    function generateMockResponse(message) {
+        const lowerMessage = message.toLowerCase();
+        if (lowerMessage.includes('it') || lowerMessage.includes('айти')) {
+            return 'Ближайшие IT события:\n• 10.09 — Frontend за один вечер\n• 19.09 — Хакатон Campus Data\n• 23.10 — Хакатон «Умный кампус»\n• 09.11 — Мастер-класс по Python\n• 28.11 — Hack Night';
+        } else if (lowerMessage.includes('хакатон')) {
+            return 'Хакатоны:\n• 19.09 — Campus Data (Технопарк)\n• 23.10 — Умный кампус (Технопарк)\nРегистрация открыта!';
+        } else if (lowerMessage.includes('хоровод')) {
+            return 'Хоровод УрФУ — традиционная университетская акция ко дню рождения УрФУ. Дата: 19.10.2026 в 17:00 на площади перед ГУК.';
+        } else if (lowerMessage.includes('карьер')) {
+            return 'Карьерные события:\n• 17.09 — Как попасть на стажировку\n• 26.09 — День карьеры IT\nРегистрация открыта!';
+        } else if (lowerMessage.includes('привет')) {
+            return 'Привет! Чем могу помочь? Спроси про события, хакатоны или карьеру!';
+        } else {
+            return 'Спасибо за вопрос! Посмотри полный список событий на этой странице или уточни категорию (IT, спорт, наука, карьера).';
+        }
+    }
+
+    widgetSend.addEventListener('click', function(e) {
+        e.stopPropagation();
+        sendMessage(widgetInput.value);
+    });
+
+    widgetInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') sendMessage(widgetInput.value);
+    });
+
+    document.querySelectorAll('.suggestion-chip').forEach(function(chip) {
+        chip.addEventListener('click', function(e) {
+            e.stopPropagation();
+            sendMessage(this.getAttribute('data-message'));
+        });
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.ai-widget')) widgetWindow.style.display = 'none';
+    });
+
+    widgetWindow.addEventListener('click', function(e) { e.stopPropagation(); });
+
+    // ===== Поиск событий =====
+    const searchInput = document.getElementById('eventsSearch');
+    const eventCards = document.querySelectorAll('.event-card');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase().trim();
+            eventCards.forEach(function(card) {
+                const name = (card.getAttribute('data-name') || '').toLowerCase();
+                const place = (card.getAttribute('data-place') || '').toLowerCase();
+                const tags = (card.getAttribute('data-tags') || '').toLowerCase();
+                const category = (card.getAttribute('data-category') || '').toLowerCase();
+                if (name.includes(query) || place.includes(query) || tags.includes(query) || category.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    }
+
+    // ===== Фильтры по категориям =====
+    document.querySelectorAll('#categoryFilters .filter-tag').forEach(function(tag) {
+        tag.addEventListener('click', function() {
+            document.querySelectorAll('#categoryFilters .filter-tag').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            const category = this.getAttribute('data-category');
+            eventCards.forEach(function(card) {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // ===== Избранное =====
+    document.querySelectorAll('.event-fav-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const eventId = this.getAttribute('data-event-id');
+            const btn = this;
+
+            fetch('/api/v1/events/favorite', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({event_id: parseInt(eventId)})
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'added') {
+                    btn.classList.add('active');
+                    btn.title = 'Убрать из избранного';
+                } else {
+                    btn.classList.remove('active');
+                    btn.title = 'Добавить в избранное';
+                }
+            })
+            .catch(err => console.error('Ошибка:', err));
+        });
+    });
+
+    // При загрузке страницы проверяем, какие события уже в избранном
+    fetch('/api/v1/events/favorites')
+        .then(res => res.json())
+        .then(favorites => {
+            const favIds = favorites.map(f => f.id);
+            document.querySelectorAll('.event-fav-btn').forEach(btn => {
+                const eventId = parseInt(btn.getAttribute('data-event-id'));
+                if (favIds.includes(eventId)) {
+                    btn.classList.add('active');
+                    btn.title = 'Убрать из избранного';
+                }
+            });
+        })
+        .catch(err => console.error('Ошибка загрузки избранного:', err));
+});
+</script>
+{% endblock %}

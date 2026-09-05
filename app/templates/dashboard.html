@@ -38,7 +38,7 @@
                 </svg>
                 <span>Проекты</span>
             </a>
-            <a href="#" class="nav-item">
+            <a href="/events" class="nav-item">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
                     <line x1="16" y1="2" x2="16" y2="6"/>
@@ -156,7 +156,7 @@
                     </div>
                 </a>
 
-                <a href="#" class="quick-action-card">
+                <a href="/events" class="quick-action-card">
                     <div class="action-card-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -200,6 +200,58 @@
                 </a>
             </div>
         </section>
+
+        <!-- Виджет: Мои события -->
+        <section class="modern-card favorite-events-card">
+            <div class="card-header-modern">
+                <div class="card-title-wrapper">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    <h3>Мои события</h3>
+                </div>
+                <a href="/events" class="card-action-link">Все события →</a>
+            </div>
+            <div class="card-content">
+                {% if favorite_events %}
+                    <div class="favorite-events-list-wrapper">
+                        <div class="favorite-events-list">
+                            {% for event in favorite_events %}
+                            <div class="favorite-event-item" data-event-id="{{ event.id }}">
+                                <div class="favorite-event-date">
+                                    <span class="fav-day">{{ event.date[:2] }}</span>
+                                    <span class="fav-month">{{ event.date[3:6].upper() }}</span>
+                                </div>
+                                <div class="favorite-event-info">
+                                    <div class="favorite-event-category">{{ event.category }}</div>
+                                    <h4 class="favorite-event-title">{{ event.title }}</h4>
+                                    <div class="favorite-event-meta">
+                                        <span>{{ event.time }}</span>
+                                        <span>•</span>
+                                        <span>{{ event.place }}</span>
+                                    </div>
+                                </div>
+                                <button class="fav-remove-btn" data-event-id="{{ event.id }}" title="Убрать">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 12px; opacity: 0.4;">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                        <p>Пока нет избранных событий</p>
+                        <span class="empty-state-hint">Добавь события со страницы <a href="/events">События</a></span>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+
 
         <!-- Основной контент -->
         <div class="dashboard-grid">
@@ -254,7 +306,7 @@
                             </svg>
                             <h3>Интересные события</h3>
                         </div>
-                        <a href="#" class="card-action-link">Все</a>
+                        <a href="/events" class="card-action-link">Все</a>
                     </div>
                     <div class="card-content">
                         <div class="empty-state">
@@ -423,6 +475,29 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => widgetInput.focus(), 100);
         }
     });
+
+    // Удаление события из избранного на дашборде
+document.querySelectorAll('.fav-remove-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        const eventId = this.getAttribute('data-event-id');
+        const item = this.closest('.favorite-event-item');
+
+        fetch('/api/v1/events/favorite', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({event_id: parseInt(eventId)})
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === 'removed') {
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(20px)';
+                setTimeout(() => item.remove(), 200);
+            }
+        })
+        .catch(err => console.error('Ошибка:', err));
+    });
+});
 
     widgetClose.addEventListener('click', function(e) {
         e.stopPropagation();

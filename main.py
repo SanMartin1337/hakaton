@@ -7,12 +7,12 @@ from jose import JWTError, jwt
 from fastapi.responses import RedirectResponse
 from datetime import datetime, timedelta
 from passlib.context import CryptContext
-
+from app.models.user_event import UserEvent
 from app.database import engine, Base, get_db
 from app.models import user
 from app.api.v1 import auth, chat, users
 from app.config import settings
-
+from fastapi import FastAPI, Request, Depends, HTTPException, status, Form
 # Создаем таблицы
 Base.metadata.create_all(bind=engine)
 
@@ -76,6 +76,7 @@ def get_current_user_from_cookie(request: Request, db: Session = Depends(get_db)
 # =========================================
 # Главная страница (всегда доступна)
 # =========================================
+
 @app.get("/")
 async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "user": None})
@@ -88,6 +89,200 @@ async def index(request: Request):
 async def login_page(request: Request):
     return templates.TemplateResponse("login.html", {"request": request, "user": None})
 
+
+from pydantic import BaseModel
+from typing import List
+
+# Словарь всех событий (ID -> данные) — для быстрого поиска
+EVENTS_DB = {
+    1: {"title": "Знакомство с Campus Connect", "category": "Студенческая жизнь", "date": "07.09.2026", "time": "18:00",
+        "place": "Главный холл кампуса"},
+    2: {"title": "Открытая тренировка по баскетболу", "category": "Спорт", "date": "08.09.2026", "time": "19:00",
+        "place": "Спортивный комплекс УрФУ"},
+    3: {"title": "Вечер настольных игр", "category": "Сообщества", "date": "09.09.2026", "time": "18:30",
+        "place": "Студенческий центр"},
+    4: {"title": "Frontend за один вечер", "category": "IT", "date": "10.09.2026", "time": "18:00",
+        "place": "Технопарк УрФУ"},
+    5: {"title": "Welcome-встреча первокурсников ИРИТ-РТФ", "category": "Образование", "date": "11.09.2026",
+        "time": "17:30", "place": "Учебный корпус ИРИТ-РТФ"},
+    6: {"title": "Campus Startup Meetup", "category": "Стартапы", "date": "12.09.2026", "time": "17:00",
+        "place": "Коворкинг УрФУ"},
+    7: {"title": "Фотопрогулка по кампусу", "category": "Медиа", "date": "13.09.2026", "time": "16:00",
+        "place": "Главная площадь кампуса"},
+    8: {"title": "Открытая встреча «Волонтеры Урала»", "category": "Волонтерство", "date": "14.09.2026",
+        "time": "18:00", "place": "Студенческий центр"},
+    9: {"title": "Квиз «Знаешь ли ты УрФУ?»", "category": "Развлечения", "date": "15.09.2026", "time": "18:30",
+        "place": "Коворкинг УрФУ"},
+    10: {"title": "Киберспортивный вечер", "category": "Киберспорт", "date": "16.09.2026", "time": "18:00",
+         "place": "Киберспортивная зона УрФУ"},
+    11: {"title": "Как попасть на стажировку без опыта", "category": "Карьера", "date": "17.09.2026", "time": "18:00",
+         "place": "Коворкинг УрФУ"},
+    12: {"title": "Научный speed dating", "category": "Наука", "date": "18.09.2026", "time": "17:30",
+         "place": "Научная библиотека УрФУ"},
+    13: {"title": "Хакатон Campus Data", "category": "IT", "date": "19.09.2026", "time": "10:00",
+         "place": "Технопарк УрФУ"},
+    14: {"title": "Открытый день Design Hub", "category": "Дизайн", "date": "20.09.2026", "time": "17:00",
+         "place": "Коворкинг УрФУ"},
+    15: {"title": "Как устроена БРС", "category": "Образование", "date": "21.09.2026", "time": "18:00",
+         "place": "Лекционный зал УрФУ"},
+    16: {"title": "Экскурсия по лабораториям УрФУ", "category": "Наука", "date": "22.09.2026", "time": "16:00",
+         "place": "Научно-лабораторный корпус"},
+    17: {"title": "Открытый микрофон Campus Stage", "category": "Культура", "date": "23.09.2026", "time": "19:00",
+         "place": "Актовый зал УрФУ"},
+    18: {"title": "Турнир по настольному теннису", "category": "Спорт", "date": "24.09.2026", "time": "18:00",
+         "place": "Спортивный зал УрФУ"},
+    19: {"title": "Встреча клуба иностранных языков", "category": "Сообщества", "date": "25.09.2026", "time": "18:30",
+         "place": "Коворкинг УрФУ"},
+    20: {"title": "День карьеры IT", "category": "Карьера", "date": "26.09.2026", "time": "12:00",
+         "place": "Технопарк УрФУ"},
+    21: {"title": "Добровольческий день", "category": "Волонтерство", "date": "27.09.2026", "time": "12:00",
+         "place": "Студенческий центр"},
+    22: {"title": "Введение в Git и GitVerse", "category": "IT", "date": "28.09.2026", "time": "18:00",
+         "place": "Компьютерный класс"},
+    23: {"title": "Как собрать команду для проекта", "category": "Проекты", "date": "29.09.2026", "time": "18:00",
+         "place": "Коворкинг УрФУ"},
+    24: {"title": "Вечер студенческих организаций", "category": "Сообщества", "date": "30.09.2026", "time": "18:00",
+         "place": "Главный холл УрФУ"},
+    25: {"title": "AI для учебы: без магии", "category": "AI", "date": "02.10.2026", "time": "18:00",
+         "place": "Технопарк УрФУ"},
+    26: {"title": "Дебют первокурсников: отборочный этап", "category": "Культура", "date": "03.10.2026",
+         "time": "17:00", "place": "Актовый зал института"},
+    27: {"title": "Турнир по волейболу", "category": "Спорт", "date": "04.10.2026", "time": "12:00",
+         "place": "СКИВС УрФУ"},
+    28: {"title": "Лекция «Как работает стартап»", "category": "Стартапы", "date": "05.10.2026", "time": "18:30",
+         "place": "Коворкинг УрФУ"},
+    29: {"title": "НаукаФест: открытые лаборатории", "category": "Наука", "date": "06.10.2026", "time": "15:00",
+         "place": "Лабораторные корпуса УрФУ"},
+    30: {"title": "НаукаФест: научпоп-лекторий", "category": "Наука", "date": "07.10.2026", "time": "18:00",
+         "place": "Большой лекционный зал"},
+    31: {"title": "Финансовая грамотность студента", "category": "Образование", "date": "08.10.2026", "time": "18:00",
+         "place": "Коворкинг УрФУ"},
+    32: {"title": "Турнир 3x3 по баскетболу", "category": "Спорт", "date": "10.10.2026", "time": "11:00",
+         "place": "Спортивный комплекс УрФУ"},
+    33: {"title": "Как сделать сильное портфолио", "category": "Карьера", "date": "11.10.2026", "time": "17:00",
+         "place": "Коворкинг УрФУ"},
+    34: {"title": "День открытых проектов", "category": "Проекты", "date": "12.10.2026", "time": "18:00",
+         "place": "Точка кипения УрФУ"},
+    35: {"title": "Мастер-класс по публичным выступлениям", "category": "Навыки", "date": "13.10.2026", "time": "18:30",
+         "place": "Актовый зал УрФУ"},
+    36: {"title": "Медиа-день УрФУ", "category": "Медиа", "date": "14.10.2026", "time": "17:00",
+         "place": "Медиа-студия"},
+    37: {"title": "Подготовка волонтеров к Хороводу УрФУ", "category": "Волонтерство", "date": "15.10.2026",
+         "time": "18:00", "place": "Главный учебный корпус"},
+    38: {"title": "Встреча Buddy System UrFU", "category": "Международное", "date": "16.10.2026", "time": "18:00",
+         "place": "Международный центр"},
+    39: {"title": "Demo Day студенческих проектов", "category": "Проекты", "date": "17.10.2026", "time": "16:00",
+         "place": "Большой лекционный зал"},
+    40: {"title": "Хоровод УрФУ", "category": "Традиции", "date": "19.10.2026", "time": "17:00",
+         "place": "Площадь перед ГУК"},
+    41: {"title": "Вечер истории УрФУ", "category": "Образование", "date": "20.10.2026", "time": "18:00",
+         "place": "Главный учебный корпус"},
+    42: {"title": "Хакатон «Умный кампус»", "category": "IT", "date": "23.10.2026", "time": "10:00",
+         "place": "Технопарк УрФУ"},
+    43: {"title": "Осенний кубок КВН УрФУ", "category": "Культура", "date": "24.10.2026", "time": "18:00",
+         "place": "Актовый зал УрФУ"},
+    44: {"title": "Время карьеры: день работодателей", "category": "Карьера", "date": "27.10.2026", "time": "12:00",
+         "place": "Главный учебный корпус"},
+    45: {"title": "Время карьеры: быстрые собеседования", "category": "Карьера", "date": "28.10.2026", "time": "15:00",
+         "place": "Коворкинг УрФУ"},
+    46: {"title": "Киберспортивный кубок УрФУ", "category": "Киберспорт", "date": "31.10.2026", "time": "12:00",
+         "place": "Киберспортивная зона"},
+    47: {"title": "Школа студенческого актива", "category": "Сообщества", "date": "03.11.2026", "time": "17:00",
+         "place": "Точка кипения УрФУ"},
+    48: {"title": "Как получить грант на студенческий проект", "category": "Проекты", "date": "05.11.2026",
+         "time": "18:00", "place": "Коворкинг УрФУ"},
+    49: {"title": "Студенческая конференция молодых исследователей", "category": "Наука", "date": "07.11.2026",
+         "time": "10:00", "place": "Научно-лабораторный корпус"},
+    50: {"title": "Мастер-класс по Python", "category": "IT", "date": "09.11.2026", "time": "18:00",
+         "place": "Компьютерный класс"},
+    51: {"title": "День донорства", "category": "Волонтерство", "date": "11.11.2026", "time": "09:00",
+         "place": "Площадка УрФУ"},
+    52: {"title": "Международный вечер культур", "category": "Международное", "date": "13.11.2026", "time": "18:00",
+         "place": "Студенческий центр"},
+    53: {"title": "Фестиваль студенческих медиа", "category": "Медиа", "date": "15.11.2026", "time": "16:00",
+         "place": "Медиа-студия УрФУ"},
+    54: {"title": "Инженерный кейс-чемпионат", "category": "Инженерия", "date": "17.11.2026", "time": "10:00",
+         "place": "Инженерный корпус"},
+    55: {"title": "Campus Product Meetup", "category": "IT", "date": "19.11.2026", "time": "18:00",
+         "place": "Точка кипения УрФУ"},
+    56: {"title": "Студенческий турнир по шахматам", "category": "Спорт", "date": "21.11.2026", "time": "12:00",
+         "place": "Студенческий центр"},
+    57: {"title": "День проектных команд", "category": "Проекты", "date": "23.11.2026", "time": "17:00",
+         "place": "Коворкинг УрФУ"},
+    58: {"title": "Лекция «Как не выгореть в университете»", "category": "Образование", "date": "25.11.2026",
+         "time": "18:00", "place": "Лекционный зал"},
+    59: {"title": "Музыкальный квартирник УрФУ", "category": "Культура", "date": "27.11.2026", "time": "19:00",
+         "place": "Творческое пространство УрФУ"},
+    60: {"title": "Hack Night", "category": "IT", "date": "28.11.2026", "time": "18:00", "place": "Технопарк УрФУ"},
+    61: {"title": "Ярмарка студенческих инициатив", "category": "Сообщества", "date": "30.11.2026", "time": "16:00",
+         "place": "Главный учебный корпус"},
+    62: {"title": "Зимний турнир по баскетболу", "category": "Спорт", "date": "03.12.2026", "time": "17:00",
+         "place": "Спортивный комплекс УрФУ"},
+    63: {"title": "Питч-сессия студенческих стартапов", "category": "Стартапы", "date": "05.12.2026", "time": "16:00",
+         "place": "Точка кипения УрФУ"},
+    64: {"title": "Как подготовиться к первой сессии", "category": "Образование", "date": "07.12.2026", "time": "18:00",
+         "place": "Лекционный зал УрФУ"},
+    65: {"title": "Зимний благотворительный сбор", "category": "Волонтерство", "date": "09.12.2026", "time": "12:00",
+         "place": "Студенческий центр"},
+    66: {"title": "Новогодний студенческий фестиваль", "category": "Культура", "date": "12.12.2026", "time": "18:00",
+         "place": "Актовый зал УрФУ"},
+    67: {"title": "Финальный Demo Day семестра", "category": "Проекты", "date": "15.12.2026", "time": "16:00",
+         "place": "Большой лекционный зал"},
+    68: {"title": "Открытая встреча «Итоги семестра»", "category": "Сообщества", "date": "18.12.2026", "time": "18:00",
+         "place": "Коворкинг УрФУ"},
+}
+
+
+# API: добавить/убрать событие из избранного
+@app.post("/api/v1/events/favorite")
+async def toggle_favorite(
+        request: Request,
+        db: Session = Depends(get_db)
+):
+    body = await request.json()
+    event_id = body.get("event_id")
+
+    if not event_id or event_id not in EVENTS_DB:
+        raise HTTPException(status_code=400, detail="Неверный ID события")
+
+    current_user = get_current_user_from_cookie(request, db)
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Не авторизован")
+
+    # Проверяем, есть ли уже в избранном
+    existing = db.query(UserEvent).filter(
+        UserEvent.user_id == current_user.id,
+        UserEvent.event_id == event_id
+    ).first()
+
+    if existing:
+        # Удаляем из избранного
+        db.delete(existing)
+        db.commit()
+        return {"status": "removed", "event_id": event_id}
+    else:
+        # Добавляем в избранное
+        new_fav = UserEvent(user_id=current_user.id, event_id=event_id)
+        db.add(new_fav)
+        db.commit()
+        return {"status": "added", "event_id": event_id}
+
+
+# API: получить список избранных событий пользователя
+@app.get("/api/v1/events/favorites")
+async def get_favorites(request: Request, db: Session = Depends(get_db)):
+    current_user = get_current_user_from_cookie(request, db)
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Не авторизован")
+
+    favorites = db.query(UserEvent).filter(UserEvent.user_id == current_user.id).all()
+    result = []
+    for fav in favorites:
+        event_data = EVENTS_DB.get(fav.event_id)
+        if event_data:
+            result.append({"id": fav.event_id, **event_data})
+
+    return result
 
 @app.post("/login")
 async def login_submit(
@@ -188,11 +383,20 @@ async def dashboard(request: Request, db: Session = Depends(get_db)):
     current_user = get_current_user_from_cookie(request, db)
     if not current_user:
         return RedirectResponse(url="/login", status_code=303)
+
+
+    favorites = db.query(UserEvent).filter(UserEvent.user_id == current_user.id).all()
+    favorite_events = []
+    for fav in favorites:
+        event_data = EVENTS_DB.get(fav.event_id)
+        if event_data:
+            favorite_events.append({"id": fav.event_id, **event_data})
+
     return templates.TemplateResponse("dashboard.html", {
         "request": request,
-        "user": current_user
+        "user": current_user,
+        "favorite_events": favorite_events
     })
-
 
 @app.get("/profile")
 async def profile(request: Request, db: Session = Depends(get_db)):
@@ -226,6 +430,27 @@ async def projects_page(request: Request, db: Session = Depends(get_db)):
     if not current_user:
         return RedirectResponse(url="/login", status_code=303)
     return templates.TemplateResponse("projects.html", {
+        "request": request,
+        "user": current_user
+    })
+
+
+@app.get("/events")
+async def events_page(request: Request, db: Session = Depends(get_db)):
+    print("\n" + "=" * 50)
+    print("=== ЗАПРОС НА /events ===")
+    print("Все куки:", request.cookies)
+
+    current_user = get_current_user_from_cookie(request, db)
+    print("Результат get_current_user_from_cookie:", current_user)
+    print("=" * 50 + "\n")
+
+    if not current_user:
+        print("❌ АВТОРИЗАЦИЯ НЕ ПРОЙДЕНА -> редирект на /login")
+        return RedirectResponse(url="/login", status_code=303)
+
+    print("✅ АВТОРИЗАЦИЯ УСПЕШНА -> отдаем events.html")
+    return templates.TemplateResponse("events.html", {
         "request": request,
         "user": current_user
     })
