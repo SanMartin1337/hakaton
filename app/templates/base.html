@@ -92,10 +92,8 @@
             const token = localStorage.getItem('access_token');
             const path = window.location.pathname;
             const isAuthPage = path === '/login' || path === '/register';
-            const isAppPage = ['/dashboard', '/profile', '/people', '/projects', '/events'].includes(path);
+            const isAppPage = ['/dashboard', '/profile', '/people', '/projects', '/events', '/friends', '/about'].includes(path);
 
-        // Если мы на странице приложения (dashboard, profile и т.д.) —
-        // значит сервер уже проверил куку и пустил нас. Не делаем редирект!
             if (isAppPage) {
                 console.log('Страница загружена через серверную авторизацию (кука)');
                 return;

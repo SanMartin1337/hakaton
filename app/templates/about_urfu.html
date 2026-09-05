@@ -1,0 +1,745 @@
+{% extends "base.html" %}
+
+{% block title %}Об УрФУ — Campus Connect{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Левая панель -->
+    <aside class="dashboard-sidebar">
+        <div class="sidebar-brand">
+            <svg class="brand-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 21h18M5 21V7l8-4 8 4v14M13 21v-8a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v8"/>
+            </svg>
+            <span class="brand-text">CAMPUS CONNECT</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/>
+                </svg>
+                <span>Главная</span>
+            </a>
+            <a href="/people" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <span>Люди</span>
+            </a>
+            <a href="/friends" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/>
+                </svg>
+                <span>Друзья</span>
+            </a>
+            <a href="/about" class="nav-item active">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+                </svg>
+                <span>Об УрФУ</span>
+            </a>
+            <a href="/projects" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                </svg>
+                <span>Проекты</span>
+            </a>
+            <a href="/events" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <span>События</span>
+            </a>
+            <a href="#" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><span>Сейчас в кампусе</span></a>
+            <a href="/profile" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+                <span>Профиль</span>
+            </a>
+        </nav>
+
+<!-- Сообщества -->
+        <div class="sidebar-communities">
+            <h4>Сообщества</h4>
+            <a href="#" class="community-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                    <line x1="9" y1="9" x2="9.01" y2="9"/>
+                    <line x1="15" y1="9" x2="15.01" y2="9"/>
+                </svg>
+                <span>Basketball Club</span>
+            </a>
+            <a href="#" class="community-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+                <span>IT Community</span>
+            </a>
+            <a href="#" class="community-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="13.5" cy="6.5" r="2.5"/>
+                    <circle cx="17.5" cy="10.5" r="2.5"/>
+                    <circle cx="8.5" cy="7.5" r="2.5"/>
+                    <circle cx="6.5" cy="12.5" r="2.5"/>
+                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.01 17.461 2 12 2z"/>
+                </svg>
+                <span>Design Club</span>
+            </a>
+            <a href="#" class="community-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="6" width="20" height="12" rx="2"/>
+                    <path d="M6 10h.01"/>
+                    <path d="M10 10h.01"/>
+                    <path d="M14 10h.01"/>
+                    <path d="M18 10h.01"/>
+                    <path d="M6 14h.01"/>
+                    <path d="M10 14h.01"/>
+                    <path d="M14 14h.01"/>
+                    <path d="M18 14h.01"/>
+                </svg>
+                <span>GameDev</span>
+            </a>
+            <a href="#" class="community-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="1" x2="12" y2="23"/>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+                <span>Entrepreneurship</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Основной контент -->
+    <main class="dashboard-main">
+        <div class="welcome-section-modern">
+            <div class="welcome-content">
+                <div class="welcome-greeting">
+                    <h1>Об УрФУ</h1>
+                    <p class="welcome-subtitle">Всё о нашем университете: история, структура, учёба, карьера и студенческая жизнь</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Общая информация -->
+        <section class="about-section">
+            <h2 class="about-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 21h18M5 21V7l8-4 8 4v14M13 21v-8a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v8"/>
+                </svg>
+                Общая информация
+            </h2>
+            <div class="about-card">
+                <p class="about-text">
+                    <strong>Уральский федеральный университет имени первого Президента России Б. Н. Ельцина</strong> — федеральный университет в Екатеринбурге, крупнейший вуз на Урале и один из ведущих технических университетов России. УрФУ объединяет традиции двух легендарных вузов — Уральского государственного технического университета (УГТУ-УПИ) и Уральского государственного университета имени А. М. Горького (УрГУ).
+                </p>
+                <p class="about-text">
+                    Университет был создан в 2009 году путём слияния УГТУ-УПИ и УрГУ. В 2010 году УрФУ получил статус федерального университета. Сегодня в университете обучается более 35 000 студентов, работает свыше 4 000 преподавателей и исследователей. УрФУ входит в проект «5-100» и является участником программы «Приоритет-2030».
+                </p>
+                <p class="about-text">
+                    В 2023 году был открыт новый кампус УрФУ в Новокольцовском районе Екатеринбурга — современный учебно-научный комплекс с лабораториями, общежитиями, спортивными объектами и общественными пространствами.
+                </p>
+
+                <div class="about-grid">
+                    <div class="about-item">
+                        <div class="about-item-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                        </div>
+                        <div class="about-item-content">
+                            <h4>Год основания УрГУ</h4>
+                            <p>1920 год. Уральский государственный университет был основан как первое высшее учебное заведение на Урале.</p>
+                        </div>
+                    </div>
+                    <div class="about-item">
+                        <div class="about-item-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                            </svg>
+                        </div>
+                        <div class="about-item-content">
+                            <h4>Создание УрФУ</h4>
+                            <p>2009 год — объединение УГТУ-УПИ и УрГУ в единый федеральный университет имени Б. Н. Ельцина.</p>
+                        </div>
+                    </div>
+                    <div class="about-item">
+                        <div class="about-item-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 21h18M5 21V7l8-4 8 4v14M13 21v-8a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v8"/>
+                            </svg>
+                        </div>
+                        <div class="about-item-content">
+                            <h4>Новый кампус</h4>
+                            <p>2023 год — открыт современный кампус в Новокольцовском районе с лабораториями и общежитиями.</p>
+                        </div>
+                    </div>
+                    <div class="about-item">
+                        <div class="about-item-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <div class="about-item-content">
+                            <h4>Студенты и сотрудники</h4>
+                            <p>Более 35 000 студентов и 4 000 преподавателей и исследователей.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Руководство -->
+        <section class="about-section">
+            <h2 class="about-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/>
+                </svg>
+                Руководство университета
+            </h2>
+            <div class="leadership-grid">
+                <div class="leadership-card">
+                    <div class="leadership-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <h4>Ректор</h4>
+                    <p class="leadership-name">Обабков Илья Николаевич</p>
+                    <p class="leadership-contact">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        rector@urfu.ru
+                    </p>
+                    <p class="leadership-contact">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        ГУК-300
+                    </p>
+                </div>
+                <div class="leadership-card">
+                    <div class="leadership-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <h4>Первый проректор</h4>
+                    <p class="leadership-name">Кортов Сергей Всеволодович</p>
+                    <p class="leadership-contact">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        s.v.kortov@urfu.ru
+                    </p>
+                    <p class="leadership-contact">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        ГУК-300
+                    </p>
+                </div>
+                <div class="leadership-card">
+                    <div class="leadership-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <h4>Проректор по образовательной деятельности</h4>
+                    <p class="leadership-name">Обухов Олег Владимирович</p>
+                    <p class="leadership-contact">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        o.v.obukhov@urfu.ru
+                    </p>
+                    <p class="leadership-contact">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        ГУК-301
+                    </p>
+                </div>
+                <div class="leadership-card">
+                    <div class="leadership-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <h4>Проректор по воспитательной работе</h4>
+                    <p class="leadership-name">Иванов Александр Леонидович</p>
+                    <p class="leadership-contact">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        a.l.ivanov@urfu.ru
+                    </p>
+                    <p class="leadership-contact">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        ГУК-216
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Институты -->
+        <section class="about-section">
+            <h2 class="about-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                </svg>
+                Институты УрФУ
+            </h2>
+            <p class="about-intro">УрФУ объединяет 13 институтов, каждый из которых готовит специалистов в своей области. Ниже — полный список структурных подразделений университета.</p>
+            <div class="institutes-grid">
+                <div class="institute-card">
+                    <div class="institute-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    </div>
+                    <h4>ИРИТ-РТФ</h4>
+                    <p>Институт радиоэлектроники и информационных технологий — один из крупнейших технических институтов УрФУ. Готовит специалистов в области IT, радиотехники, кибербезопасности и телекоммуникаций.</p>
+                </div>
+                <div class="institute-card">
+                    <div class="institute-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <h4>ИнЭУ</h4>
+                    <p>Институт экономики и управления — готовит экономистов, менеджеров и специалистов в области государственного и муниципального управления.</p>
+                </div>
+                <div class="institute-card">
+                    <div class="institute-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                    </div>
+                    <h4>ИЕНиМ</h4>
+                    <p>Институт естественных наук и математики — фундаментальная подготовка по физике, химии, биологии, математике и экологии.</p>
+                </div>
+                <div class="institute-card">
+                    <div class="institute-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    </div>
+                    <h4>ИНМТ</h4>
+                    <p>Институт новых материалов и технологий — современные материалы, нанотехнологии, металлургия и аддитивные технологии.</p>
+                </div>
+                <div class="institute-card">
+                    <div class="institute-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+                    </div>
+                    <h4>ИСА</h4>
+                    <p>Институт строительства и архитектуры — архитектура, градостроительство, строительство и дизайн городской среды.</p>
+                </div>
+                <div class="institute-card">
+                    <div class="institute-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    </div>
+                    <h4>ИТОО</h4>
+                    <p>Институт технологий открытого образования — дистанционное и онлайн-образование, цифровые образовательные технологии.</p>
+                </div>
+                <div class="institute-card">
+                    <div class="institute-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24,7.76 14.12,14.12 7.76,16.24 9.88,9.88"/></svg>
+                    </div>
+                    <h4>ИФКСиМП</h4>
+                    <p>Институт физической культуры, спорта и молодежной политики — подготовка тренеров, специалистов по спорту и работе с молодежью.</p>
+                </div>
+                <div class="institute-card">
+                    <div class="institute-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    </div>
+                    <h4>ИнФО</h4>
+                    <p>Институт фундаментального образования — базовая математическая и естественнонаучная подготовка для студентов всех институтов.</p>
+                </div>
+                <div class="institute-card">
+                    <div class="institute-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                    </div>
+                    <h4>УГИ</h4>
+                    <p>Уральский гуманитарный институт — история, политология, социология, филология, журналистика и культурология.</p>
+                </div>
+                <div class="institute-card">
+                    <div class="institute-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    </div>
+                    <h4>УралЭНИН</h4>
+                    <p>Уральский энергетический институт — теплоэнергетика, электроэнергетика, атомная энергетика и энергоэффективность.</p>
+                </div>
+                <div class="institute-card">
+                    <div class="institute-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    </div>
+                    <h4>ФТИ</h4>
+                    <p>Физико-технологический институт — прикладная физика, лазерные технологии, оптоэлектроника и квантовые технологии.</p>
+                </div>
+                <div class="institute-card">
+                    <div class="institute-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.52 16h12.96"/></svg>
+                    </div>
+                    <h4>ХТИ</h4>
+                    <p>Химико-технологический институт — химическая технология, биотехнология, экология и защита окружающей среды.</p>
+                </div>
+                <div class="institute-card">
+                    <div class="institute-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <h4>УПИШ</h4>
+                    <p>Уральская передовая инженерная школа — подготовка инженеров нового поколения для высокотехнологичных отраслей промышленности.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Учеба и БРС -->
+        <section class="about-section">
+            <h2 class="about-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+                Учеба и БРС
+            </h2>
+            <div class="about-card">
+                <p class="about-text">
+                    <strong>БРС (Балльно-рейтинговая система)</strong> — система оценки успеваемости студентов УрФУ. В течение семестра студент набирает баллы за выполнение заданий, участие в семинарах, контрольные работы и другие виды активности. Итоговая оценка формируется на основе накопленных баллов.
+                </p>
+                <p class="about-text">
+                    В УрФУ существует несколько видов рейтингов: <strong>научный рейтинг</strong> (публикации, конференции, гранты), <strong>рейтинг БРС</strong> (успеваемость по дисциплинам), <strong>внеучебный рейтинг</strong> (участие в мероприятиях, волонтерство, спорт) и <strong>общий рейтинг</strong>, который суммирует все достижения студента.
+                </p>
+                <p class="about-text">
+                    <strong>Электронная зачетка</strong> доступна в личном кабинете студента на портале УрФУ. Там же можно посмотреть успеваемость, заказать экзаменационный лист для пересдачи зачетов и экзаменов, а также поделиться зачеткой по ссылке с работодателем или родителями.
+                </p>
+                <p class="about-text">
+                    По вопросам учебы и расписания необходимо обращаться в <strong>деканат или дирекцию</strong> своего института. Если в расписании обнаружена ошибка — также следует сообщить в деканат для оперативного исправления.
+                </p>
+
+                <div class="about-grid">
+                    <div class="about-item">
+                        <div class="about-item-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        </div>
+                        <div class="about-item-content">
+                            <h4>Электронная зачетка</h4>
+                            <p>Доступна в личном кабинете. Фиксирует итоги обучения за семестр. Можно поделиться по ссылке.</p>
+                        </div>
+                    </div>
+                    <div class="about-item">
+                        <div class="about-item-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+                        </div>
+                        <div class="about-item-content">
+                            <h4>Виды рейтингов</h4>
+                            <p>Научный, БРС, внеучебный и общий — каждый отражает разные аспекты студенческой жизни.</p>
+                        </div>
+                    </div>
+                    <div class="about-item">
+                        <div class="about-item-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        </div>
+                        <div class="about-item-content">
+                            <h4>Экзаменационный лист</h4>
+                            <p>Заказывается через личный кабинет для пересдачи зачетов и экзаменов.</p>
+                        </div>
+                    </div>
+                    <div class="about-item">
+                        <div class="about-item-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        </div>
+                        <div class="about-item-content">
+                            <h4>Деканат</h4>
+                            <p>Обращайтесь в деканат/дирекцию своего института по всем вопросам учебы и расписания.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Расписание и сессия -->
+        <section class="about-section">
+            <h2 class="about-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>
+                </svg>
+                Расписание и сессия
+            </h2>
+            <div class="about-card">
+                <p class="about-text">
+                    <strong>Расписание занятий</strong> в УрФУ публикуется на официальном сайте университета и доступно по номеру учебной группы. Расписание может меняться в течение семестра, поэтому рекомендуется регулярно проверять актуальную версию.
+                </p>
+                <p class="about-text">
+                    <strong>Сессия</strong> в УрФУ проходит дважды в год — зимняя (январь) и летняя (июнь). К сессии допускаются студенты, выполнившие все требования учебного плана. Пересдача экзаменов и зачетов осуществляется по экзаменационному листу, который можно заказать в личном кабинете.
+                </p>
+                <p class="about-text">
+                    <strong>Академическая справка</strong> выдается студентам, отчисленным из университета или завершившим обучение без получения диплома. Справка содержит перечень изученных дисциплин и полученных оценок.
+                </p>
+                <p class="about-text">
+                    <strong>Перезачет результатов обучения</strong> возможен при переводе из другого вуза или при повторном поступлении. Для оформления необходимо обратиться в деканат с пакетом документов.
+                </p>
+
+                <div class="about-grid">
+                    <div class="about-item">
+                        <div class="about-item-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        </div>
+                        <div class="about-item-content">
+                            <h4>Где смотреть расписание?</h4>
+                            <p>На сайте УрФУ по номеру учебной группы. Актуальную версию проверяйте регулярно.</p>
+                        </div>
+                    </div>
+                    <div class="about-item">
+                        <div class="about-item-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                        </div>
+                        <div class="about-item-content">
+                            <h4>Сессии</h4>
+                            <p>Зимняя — январь, летняя — июнь. К сессии допускаются выполнившие все требования плана.</p>
+                        </div>
+                    </div>
+                    <div class="about-item">
+                        <div class="about-item-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+                        </div>
+                        <div class="about-item-content">
+                            <h4>Академическая справка</h4>
+                            <p>Выдается при отчислении или завершении обучения без диплома. Содержит все изученные дисциплины.</p>
+                        </div>
+                    </div>
+                    <div class="about-item">
+                        <div class="about-item-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                        </div>
+                        <div class="about-item-content">
+                            <h4>Перезачет</h4>
+                            <p>Возможен при переводе из другого вуза. Обратитесь в деканат с пакетом документов.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Карьера, практика и проекты -->
+        <section class="about-section">
+            <h2 class="about-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+                Карьера, практика и проекты
+            </h2>
+            <div class="about-card">
+                <p class="about-text">
+                    <strong>«Время карьеры»</strong> — карьерный проект УрФУ, где студенты и выпускники знакомятся с работодателями, узнают о найме, ищут практику и стажировку, проходят собеседования и могут получить предложения о работе. Мероприятия проходят регулярно в течение учебного года.
+                </p>
+                <p class="about-text">
+                    <strong>Пик IT</strong> — крупнейшая IT-конференция на Урале, организованная при участии УрФУ. Студенты могут познакомиться с ведущими IT-компаниями, посетить мастер-классы и найти стажировку или работу.
+                </p>
+                <p class="about-text">
+                    <strong>Проектное обучение</strong> — образовательная технология УрФУ, в которой студенты работают с реальными задачами компаний и организаций. Это позволяет получить практический опыт еще во время обучения и построить портфолио для будущего работодателя.
+                </p>
+                <p class="about-text">
+                    <strong>Портфолио обучающихся</strong> — документ, фиксирующий достижения студента во время обучения: участие в конференциях, олимпиадах, волонтерских проектах, спортивных соревнованиях и творческих мероприятиях. Портфолио учитывается при формировании общего рейтинга и может быть полезно при трудоустройстве.
+                </p>
+
+                <div class="about-grid">
+                    <div class="about-item">
+                        <div class="about-item-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-3a2 2 0 0 1-2-2V2"/><path d="M9 18v-6"/><path d="M12 18v-3"/><path d="M15 18v-1"/><rect x="3" y="7" width="18" height="15" rx="2"/></svg>
+                        </div>
+                        <div class="about-item-content">
+                            <h4>Время карьеры</h4>
+                            <p>Карьерный проект УрФУ: встречи с работодателями, стажировки, собеседования.</p>
+                        </div>
+                    </div>
+                    <div class="about-item">
+                        <div class="about-item-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16,18 22,12 16,6"/><polyline points="8,6 2,12 8,18"/></svg>
+                        </div>
+                        <div class="about-item-content">
+                            <h4>Пик IT</h4>
+                            <p>Крупнейшая IT-конференция на Урале. Знакомство с компаниями, мастер-классы, поиск работы.</p>
+                        </div>
+                    </div>
+                    <div class="about-item">
+                        <div class="about-item-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                        </div>
+                        <div class="about-item-content">
+                            <h4>Проектное обучение</h4>
+                            <p>Работа с реальными задачами компаний. Практический опыт и портфолио еще во время учебы.</p>
+                        </div>
+                    </div>
+                    <div class="about-item">
+                        <div class="about-item-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                        </div>
+                        <div class="about-item-content">
+                            <h4>Портфолио студента</h4>
+                            <p>Фиксирует достижения: конференции, олимпиады, волонтерство, спорт. Учитывается в рейтинге.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Термины и сленг -->
+        <section class="about-section">
+            <h2 class="about-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+                </svg>
+                Студенческие термины и сленг
+            </h2>
+            <p class="about-intro">Каждый университет имеет свой уникальный сленг. Вот основные термины, которые нужно знать студенту УрФУ:</p>
+            <div class="terms-grid">
+                <div class="term-card">
+                    <h4>ГУК</h4>
+                    <p><strong>Главный учебный корпус</strong> — историческое здание УрФУ по адресу ул. Мира, 19. Здесь расположены аудитории, библиотеки и административные службы.</p>
+                </div>
+                <div class="term-card">
+                    <h4>Куба</h4>
+                    <p><strong>Учебный корпус</strong> по адресу ул. Куйбышева, 48. Назван так из-за характерной кубической формы здания. Здесь учатся студенты многих институтов.</p>
+                </div>
+                <div class="term-card">
+                    <h4>Паркет</h4>
+                    <p><strong>Фойе второго этажа ГУК</strong> — популярное место встреч студентов между парами. Назван из-за паркетного пола.</p>
+                </div>
+                <div class="term-card">
+                    <h4>Большак</h4>
+                    <p><strong>Длинная перемена</strong> между 3 и 4 парой. Самое популярное время для обеда в столовой и встреч с одногруппниками.</p>
+                </div>
+                <div class="term-card">
+                    <h4>БРС</h4>
+                    <p><strong>Балльно-рейтинговая система</strong> — система оценки успеваемости, где студент набирает баллы за различные виды работы в течение семестра.</p>
+                </div>
+                <div class="term-card">
+                    <h4>Пекус</h4>
+                    <p><strong>Дружеское обращение</strong> к студенту или одногруппнику. Распространено среди студентов технических направлений.</p>
+                </div>
+                <div class="term-card">
+                    <h4>Хвостовка</h4>
+                    <p><strong>Документ перед пересдачей</strong> — направление на пересдачу зачета или экзамена, которое нужно получить в деканате.</p>
+                </div>
+                <div class="term-card">
+                    <h4>ПОС</h4>
+                    <p><strong>Союз студентов УрФУ</strong> — сообщество активистов, участвующее в крупных событиях университета и защите прав студентов.</p>
+                </div>
+                <div class="term-card">
+                    <h4>ПБ</h4>
+                    <p><strong>Профбюро института</strong> — студенческая организация, занимающаяся социальными вопросами, материальной помощью и организацией мероприятий.</p>
+                </div>
+                <div class="term-card">
+                    <h4>Пара</h4>
+                    <p><strong>Учебное занятие</strong> продолжительностью 1 час 30 минут (две академические часы). В день обычно бывает от 2 до 4 пар.</p>
+                </div>
+                <div class="term-card">
+                    <h4>Зачетка</h4>
+                    <p><strong>Зачетная книжка</strong> — документ студента, в котором фиксируются результаты сдачи зачетов и экзаменов. В УрФУ действует электронная зачетка.</p>
+                </div>
+                <div class="term-card">
+                    <h4>Деканат</h4>
+                    <p><strong>Администрация института</strong> — место, куда студенты обращаются по всем учебным вопросам: расписание, справки, пересдачи, отчисления.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Полезные советы -->
+        <section class="about-section">
+            <h2 class="about-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                </svg>
+                Полезные советы первокурснику
+            </h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                    </div>
+                    <h4>Когда идти в столовую?</h4>
+                    <p>Сразу после 3 пары или ближе к концу большака — так меньше очередей и больше выбора блюд. В часы пик (начало большака) очереди могут быть очень длинными.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.38 3.46L16 2 12 3.46 8 2 3.62 3.46a2 2 0 0 0-1.34 1.89v13.3a2 2 0 0 0 2.66 1.89L8 19l4 1.46L16 19l4.38 1.54a2 2 0 0 0 2.66-1.89V5.35a2 2 0 0 0-1.34-1.89z"/><line x1="12" y1="22" x2="12" y2="12"/><polyline points="8,12 12,8 16,12"/></svg>
+                    </div>
+                    <h4>Гардероб</h4>
+                    <p>На куртке должна быть петелька — иначе гардеробщик может отказаться принимать вещь. Не оставляй ценные вещи в карманах и не теряй номерок!</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16,8 20,8 23,11 23,16 16,16 16,8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                    </div>
+                    <h4>Автошкола УрФУ</h4>
+                    <p>В университете можно пройти обучение на категории A и B прямо на базе УрФУ. Это удобно и часто дешевле, чем в городских автошколах.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    </div>
+                    <h4>Студенческий туризм</h4>
+                    <p>Программа позволяет студентам путешествовать и проживать в кампусах других университетов на льготных условиях. Отличный способ увидеть другие города!</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                    </div>
+                    <h4>Конспекты и материалы</h4>
+                    <p>Заведи привычку конспектировать лекции — это поможет лучше усвоить материал и подготовиться к сессии. Многие преподаватели выкладывают материалы в ЭИОС УрФУ.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h4>Нетворкинг</h4>
+                    <p>Знакомься с одногруппниками и студентами других направлений — это поможет найти команду для проектов, хакатонов и будущих стартапов.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Нормативные документы -->
+        <section class="about-section">
+            <h2 class="about-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/>
+                </svg>
+                Нормативные документы
+            </h2>
+            <div class="about-card">
+                <p class="about-text">
+                    В УрФУ действует множество нормативных документов, регулирующих учебный процесс и студенческую жизнь. Все они опубликованы в официальном разделе документов университета.
+                </p>
+                <div class="docs-list">
+                    <div class="doc-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+                        <div>
+                            <h4>Правила внутреннего распорядка</h4>
+                            <p>Регламентируют режим занятий, права и обязанности студентов, дисциплинарные меры.</p>
+                        </div>
+                    </div>
+                    <div class="doc-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+                        <div>
+                            <h4>Положение о БРС</h4>
+                            <p>Описывает принципы балльно-рейтинговой системы, шкалы перевода баллов в оценки.</p>
+                        </div>
+                    </div>
+                    <div class="doc-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+                        <div>
+                            <h4>Положение о портфолио обучающихся</h4>
+                            <p>Регламентирует формирование и учет портфолио студентов по программам высшего образования.</p>
+                        </div>
+                    </div>
+                    <div class="doc-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+                        <div>
+                            <h4>Положение о дисциплинарной ответственности</h4>
+                            <p>Определяет виды нарушений и меры ответственности для обучающихся.</p>
+                        </div>
+                    </div>
+                    <div class="doc-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+                        <div>
+                            <h4>Положение о текущем контроле и промежуточной аттестации</h4>
+                            <p>Регламентирует формы текущего контроля, виды аттестации и порядок проведения сессии.</p>
+                        </div>
+                    </div>
+                    <div class="doc-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+                        <div>
+                            <h4>Правила использования ИИ (896/03)</h4>
+                            <p>Регламентирует применение искусственного интеллекта в учебном процессе УрФУ.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+
+{% endblock %}

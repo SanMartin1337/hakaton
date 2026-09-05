@@ -13,6 +13,8 @@ from app.models import user
 from app.api.v1 import auth, chat, users
 from app.config import settings
 from fastapi import FastAPI, Request, Depends, HTTPException, status, Form
+from app.models.friend_request import FriendRequest
+from app.models.user import User
 # Создаем таблицы
 Base.metadata.create_all(bind=engine)
 
@@ -89,9 +91,6 @@ async def index(request: Request):
 async def login_page(request: Request):
     return templates.TemplateResponse("login.html", {"request": request, "user": None})
 
-
-from pydantic import BaseModel
-from typing import List
 
 # Словарь всех событий (ID -> данные) — для быстрого поиска
 EVENTS_DB = {
@@ -284,6 +283,42 @@ async def get_favorites(request: Request, db: Session = Depends(get_db)):
 
     return result
 
+
+@app.post("/api/v1/friends/request")
+async def send_friend_request(request: Request, db: Session = Depends(get_db)):
+    current_user = get_current_user_from_cookie(request, db)
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Не авторизован")
+
+    body = await request.json()
+    receiver_id = body.get("receiver_id")
+
+    if receiver_id == current_user.id:
+        return {"error": "Нельзя добавить себя в друзья"}
+
+    # Проверяем ВСЕ возможные варианты существующих заявок
+    existing = db.query(FriendRequest).filter(
+        ((FriendRequest.sender_id == current_user.id) & (FriendRequest.receiver_id == receiver_id)) |
+        ((FriendRequest.sender_id == receiver_id) & (FriendRequest.receiver_id == current_user.id))
+    ).first()
+
+    if existing:
+        if existing.status == "pending":
+            return {"status": "already_pending"}
+        elif existing.status == "accepted":
+            return {"status": "already_friends"}
+        elif existing.status == "declined":
+            # Если была отклонена, создаем новую заявку
+            existing.status = "pending"
+            db.commit()
+            return {"status": "sent"}
+
+    new_request = FriendRequest(sender_id=current_user.id, receiver_id=receiver_id, status="pending")
+    db.add(new_request)
+    db.commit()
+
+    return {"status": "sent"}
+
 @app.post("/login")
 async def login_submit(
     request: Request,
@@ -456,6 +491,115 @@ async def events_page(request: Request, db: Session = Depends(get_db)):
     })
 
 
+# =========================================
+# СИСТЕМА ДРУЗЕЙ (API + Страница)
+# =========================================
+
+@app.get("/friends")
+async def friends_page(request: Request, db: Session = Depends(get_db)):
+    current_user = get_current_user_from_cookie(request, db)
+    if not current_user:
+        return RedirectResponse(url="/login", status_code=303)
+
+    # 1. Получаем входящие заявки (pending)
+    requests_db = db.query(FriendRequest).filter(
+        FriendRequest.receiver_id == current_user.id,
+        FriendRequest.status == "pending"
+    ).all()
+
+    # 2. Для каждой заявки находим отправителя и создаем кортеж (req, sender)
+    incoming_data = []
+    for req in requests_db:
+        sender = db.query(user.User).filter(user.User.id == req.sender_id).first()
+        if sender:
+            incoming_data.append((req, sender))
+
+    # 3. Получаем список друзей (accepted)
+    friends = db.query(user.User).join(
+        FriendRequest,
+        ((FriendRequest.sender_id == current_user.id) | (FriendRequest.receiver_id == current_user.id)) &
+        (FriendRequest.status == "accepted")
+    ).filter(user.User.id != current_user.id).all()
+
+    # Отладка (можешь оставить или убрать)
+    print(f"\n=== DEBUG /friends ===")
+    print(f"User: {current_user.full_name}")
+    print(f"Incoming: {len(incoming_data)}")
+    for req, sender in incoming_data:
+        print(f"  -> От: {sender.full_name} (ID заявки: {req.id})")
+    print(f"===================\n")
+
+    return templates.TemplateResponse("friends.html", {
+        "request": request,
+        "user": current_user,
+        "incoming_data": incoming_data,  # <-- Передаем под новым именем
+        "friends": friends
+    })
+
+@app.post("/api/v1/friends/request")
+async def send_friend_request(request: Request, db: Session = Depends(get_db)):
+    current_user = get_current_user_from_cookie(request, db)
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Не авторизован")
+
+    body = await request.json()
+    receiver_id = body.get("receiver_id")
+
+    if receiver_id == current_user.id:
+        return {"error": "Нельзя добавить себя в друзья"}
+
+    # Проверяем, нет ли уже активной заявки или дружбы
+    existing = db.query(FriendRequest).filter(
+        ((FriendRequest.sender_id == current_user.id) & (FriendRequest.receiver_id == receiver_id)) |
+        ((FriendRequest.sender_id == receiver_id) & (FriendRequest.receiver_id == current_user.id))
+    ).first()
+
+    if existing:
+        if existing.status == "pending":
+            return {"status": "already_pending"}
+        elif existing.status == "accepted":
+            return {"status": "already_friends"}
+
+    new_request = FriendRequest(sender_id=current_user.id, receiver_id=receiver_id, status="pending")
+    db.add(new_request)
+    db.commit()
+
+    return {"status": "sent"}
+
+
+@app.post("/api/v1/friends/respond")
+async def respond_to_friend_request(request: Request, db: Session = Depends(get_db)):
+    current_user = get_current_user_from_cookie(request, db)
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Не авторизован")
+
+    body = await request.json()
+    request_id = body.get("request_id")
+    action = body.get("action")  # "accept" или "decline"
+
+    req = db.query(FriendRequest).filter(
+        FriendRequest.id == request_id,
+        FriendRequest.receiver_id == current_user.id,
+        FriendRequest.status == "pending"
+    ).first()
+
+    if not req:
+        raise HTTPException(status_code=404, detail="Заявка не найдена")
+
+    req.status = "accepted" if action == "accept" else "declined"
+    db.commit()
+
+    return {"status": "updated"}
+
+@app.get("/about")
+async def about_page(request: Request, db: Session = Depends(get_db)):
+    current_user = get_current_user_from_cookie(request, db)
+    if not current_user:
+        return RedirectResponse(url="/login", status_code=303)
+    return templates.TemplateResponse("about_urfu.html", {
+        "request": request,
+        "user": current_user
+    })
 # =========================================
 # Запуск
 # =========================================

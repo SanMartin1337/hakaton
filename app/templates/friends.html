@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block title %}Друзья — Campus Connect{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Левая панель (скопируй из dashboard.html, но сделай nav-item active для /friends) -->
+    <aside class="dashboard-sidebar">
+        <div class="sidebar-brand">
+            <svg class="brand-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 21h18M5 21V7l8-4 8 4v14M13 21v-8a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v8"/>
+            </svg>
+            <span class="brand-text">CAMPUS CONNECT</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>Главная</span></a>
+            <a href="/people" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Люди</span></a>
+            <a href="/friends" class="nav-item active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg><span>Друзья</span></a>
+            <a href="/about" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>Об УрФУ</span></a>
+            <a href="/projects" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span>Проекты</span></a>
+            <a href="/events" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>События</span></a>
+            <a href="#" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><span>Сейчас в кампусе</span></a>
+            <a href="/profile" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Профиль</span></a>
+        </nav>
+
+
+    <!-- Сообщества -->
+        <div class="sidebar-communities">
+            <h4>Сообщества</h4>
+            <a href="#" class="community-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                    <line x1="9" y1="9" x2="9.01" y2="9"/>
+                    <line x1="15" y1="9" x2="15.01" y2="9"/>
+                </svg>
+                <span>Basketball Club</span>
+            </a>
+            <a href="#" class="community-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+                <span>IT Community</span>
+            </a>
+            <a href="#" class="community-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="13.5" cy="6.5" r="2.5"/>
+                    <circle cx="17.5" cy="10.5" r="2.5"/>
+                    <circle cx="8.5" cy="7.5" r="2.5"/>
+                    <circle cx="6.5" cy="12.5" r="2.5"/>
+                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.01 17.461 2 12 2z"/>
+                </svg>
+                <span>Design Club</span>
+            </a>
+            <a href="#" class="community-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="6" width="20" height="12" rx="2"/>
+                    <path d="M6 10h.01"/>
+                    <path d="M10 10h.01"/>
+                    <path d="M14 10h.01"/>
+                    <path d="M18 10h.01"/>
+                    <path d="M6 14h.01"/>
+                    <path d="M10 14h.01"/>
+                    <path d="M14 14h.01"/>
+                    <path d="M18 14h.01"/>
+                </svg>
+                <span>GameDev</span>
+            </a>
+            <a href="#" class="community-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="1" x2="12" y2="23"/>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+                <span>Entrepreneurship</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <div class="welcome-section-modern">
+            <div class="welcome-content">
+                <div class="welcome-greeting">
+                    <h1>Мои друзья</h1>
+                    <p class="welcome-subtitle">Управляй заявками и общайся с единомышленниками</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Входящие заявки -->
+        <section class="friends-section">
+            <h2 class="section-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="8.5" cy="7" r="4"/>
+                    <line x1="20" y1="8" x2="20" y2="14"/>
+                    <line x1="23" y1="11" x2="17" y2="11"/>
+                </svg>
+                Входящие заявки
+            </h2>
+            <div class="friends-grid" id="incomingRequests">
+                {% if incoming_data %}
+                    {% for req, sender in incoming_data %}
+                    <div class="friend-card" id="req-{{ req.id }}">
+                        <div class="person-avatar">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="person-info">
+                            <h3>{{ sender.full_name }}</h3>
+                            <p class="person-role">
+                                {% if sender.institute %}{{ sender.institute }}{% endif %}
+                                {% if sender.institute and sender.group %}, {% endif %}
+                                {% if sender.group %}{{ sender.group }}{% endif %}
+                            </p>
+                        </div>
+                        <div class="friend-actions">
+                            <button class="friend-btn accept" data-request-id="{{ req.id }}" data-action="accept">Принять</button>
+                            <button class="friend-btn decline" data-request-id="{{ req.id }}" data-action="decline">Отклонить</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state-full">
+                        <p>Пока нет новых заявок</p>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- Список друзей -->
+        <section class="friends-section">
+            <h2 class="section-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Мои друзья
+            </h2>
+            <div class="friends-grid" id="friendsList">
+                {% if friends %}
+                    {% for friend in friends %}
+                    <div class="friend-card">
+                        <div class="person-avatar">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </div>
+                        <div class="person-info">
+                            <h3>{{ friend.full_name }}</h3>
+                            <p class="person-role">{{ friend.institute or '' }}{% if friend.institute and friend.group %}, {% endif %}{{ friend.group or '' }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state-full">
+                        <p>У тебя пока нет друзей. <a href="/people" style="color: #3b82f6;">Найди их здесь!</a></p>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Обработка кнопок принятия/отклонения заявок
+document.querySelectorAll('.friend-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        const requestId = this.getAttribute('data-request-id');
+        const action = this.getAttribute('data-action');
+
+        fetch('/api/v1/friends/respond', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({request_id: parseInt(requestId), action: action})
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === 'updated') {
+                const card = this.closest('.friend-card');
+                card.style.opacity = '0';
+                card.style.transform = 'translateX(20px)';
+                setTimeout(() => {
+                    card.remove();
+                    // Если заявок не осталось, показываем заглушку
+                    const container = document.getElementById('incomingRequests');
+                    if (container.querySelectorAll('.friend-card').length === 0) {
+                        container.innerHTML = '<div class="empty-state-full"><p>Пока нет новых заявок</p></div>';
+                    }
+                    // Перезагружаем страницу, чтобы обновить список друзей
+                    location.reload();
+                }, 200);
+            }
+        })
+        .catch(err => console.error('Ошибка:', err));
+    });
+});
+</script>
+{% endblock %}
