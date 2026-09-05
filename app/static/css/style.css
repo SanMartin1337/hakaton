@@ -2111,3 +2111,348 @@ body {
         justify-content: center;
     }
 }
+/* ===== Modern Auth Pages (Login/Register) ===== */
+.auth-page-modern {
+    min-height: calc(100vh - 73px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    position: relative;
+    background: #f8fafc;
+}
+
+/* Размытая фоновая картинка кампуса */
+.auth-page-modern::before {
+    content: '';
+    position: fixed;
+    inset: -40px;
+    background-image: url('../images/urfuLoginfon.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: blur(6px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Вуаль для читаемости */
+.auth-page-modern::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(240, 244, 248, 0.4);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.auth-container-modern {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 480px;
+}
+
+.auth-card-modern {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 48px 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.auth-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.auth-logo svg {
+    color: #1e3a8a;
+}
+
+.auth-logo h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+}
+
+.auth-subtitle {
+    color: #6b7280;
+    font-size: 15px;
+    margin: 0;
+}
+
+.auth-form {
+    margin-bottom: 24px;
+}
+
+.btn-submit-modern {
+    width: 100%;
+    padding: 14px 24px;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.btn-submit-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(30, 58, 138, 0.3);
+}
+
+.btn-submit-modern:active {
+    transform: translateY(0);
+}
+
+.auth-footer-modern {
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.auth-footer-modern p {
+    color: #6b7280;
+    font-size: 14px;
+    margin: 0;
+}
+
+.auth-footer-modern a {
+    color: #3b82f6;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.auth-footer-modern a:hover {
+    color: #1e3a8a;
+    text-decoration: underline;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 640px) {
+    .auth-page-modern {
+        padding: 20px 16px;
+    }
+
+    .auth-card-modern {
+        padding: 36px 24px;
+    }
+
+    .auth-logo h2 {
+        font-size: 24px;
+    }
+}
+.auth-logo-img {
+    width: 180px;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 8px;
+}
+/* ===== Аватарка с инициалами в навбаре ===== */
+.user-avatar-link {
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 12px;
+}
+
+.user-avatar-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6 0%, #1e3a8a 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.user-avatar-circle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+}
+
+/* ===== Страница профиля ===== */
+.profile-card-modern {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.profile-avatar-large {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6 0%, #1e3a8a 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+}
+
+.profile-header-info h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 4px;
+}
+
+.profile-email {
+    color: #6b7280;
+    font-size: 14px;
+    margin: 0;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.profile-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: #f9fafb;
+    border-radius: 12px;
+    transition: all 0.2s;
+}
+
+.profile-detail-item:hover {
+    background: #f3f4f6;
+}
+
+.profile-detail-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3b82f6;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.profile-detail-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.profile-detail-label {
+    font-size: 12px;
+    color: #9ca3af;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.profile-detail-value {
+    font-size: 15px;
+    color: #1f2937;
+    font-weight: 500;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.profile-btn {
+    flex: 1;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+.profile-btn.secondary {
+    background: white;
+    color: #3b82f6;
+    border-color: #3b82f6;
+}
+
+.profile-btn.secondary:hover {
+    background: #3b82f6;
+    color: white;
+}
+
+.profile-btn.danger {
+    background: white;
+    color: #ef4444;
+    border-color: #ef4444;
+}
+
+.profile-btn.danger:hover {
+    background: #ef4444;
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .profile-card-modern {
+        padding: 24px;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-actions {
+        flex-direction: column;
+    }
+}

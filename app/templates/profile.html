@@ -1,152 +1,306 @@
 {% extends "base.html" %}
 
-{% block title %}Личный кабинет — Campus Connect{% endblock %}
+{% block title %}Профиль — Campus Connect{% endblock %}
 
 {% block content %}
-<section class="profile-hero">
-    <img src="/static/images/urfu2-kampus.jpg" alt="Кампус УрФУ" class="profile-hero-bg">
+<div class="dashboard-container">
+    <!-- Левая панель -->
+    <aside class="dashboard-sidebar">
+        <div class="sidebar-brand">
+            <svg class="brand-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 21h18M5 21V7l8-4 8 4v14M13 21v-8a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v8"/>
+            </svg>
+            <span class="brand-text">CAMPUS CONNECT</span>
+        </div>
 
-    <div class="profile-hero-blur profile-hero-blur--top"></div>
-    <div class="profile-hero-blur profile-hero-blur--bottom"></div>
-    <div class="profile-hero-blur profile-hero-blur--left"></div>
-    <div class="profile-hero-blur profile-hero-blur--right"></div>
-    <div class="profile-hero-overlay"></div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/>
+                </svg>
+                <span>Главная</span>
+            </a>
+            <a href="/people" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <span>Люди</span>
+            </a>
+            <a href="/projects" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                </svg>
+                <span>Проекты</span>
+            </a>
+            <a href="#" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <span>События</span>
+            </a>
+            <a href="#" class="nav-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                </svg>
+                <span>Сейчас в кампусе</span>
+            </a>
+            <a href="/profile" class="nav-item active">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+                <span>Профиль</span>
+            </a>
+        </nav>
 
-    <div class="profile-card">
-        <div class="profile-avatar" id="profile-avatar">И</div>
-        <h1 id="profile-name">Загрузка...</h1>
-        <p class="profile-email" id="profile-email"></p>
+        <div class="sidebar-communities">
+            <h4>Сообщества</h4>
+            <a href="#" class="community-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                <span>Basketball Club</span>
+            </a>
+            <a href="#" class="community-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                <span>IT Community</span>
+            </a>
+            <a href="#" class="community-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/></svg>
+                <span>Design Club</span>
+            </a>
+        </div>
+    </aside>
 
-        <div class="profile-stats">
-            <div class="profile-stat">
-                <span class="profile-stat-label">Институт</span>
-                <span class="profile-stat-value" id="profile-institute">—</span>
-            </div>
-            <div class="profile-stat">
-                <span class="profile-stat-label">Группа</span>
-                <span class="profile-stat-value" id="profile-group">—</span>
+    <!-- Основной контент -->
+    <main class="dashboard-main">
+        <!-- Приветствие -->
+        <div class="welcome-section-modern">
+            <div class="welcome-content">
+                <div class="welcome-greeting">
+                    <h1>Мой профиль</h1>
+                    <p class="welcome-subtitle">Управляй своей информацией и настройками</p>
+                </div>
             </div>
         </div>
 
-        <div class="profile-actions">
-            <a href="/#features" class="btn-secondary-light">Возможности платформы</a>
-            <a href="#" onclick="logout()" class="btn-logout-light">Выйти из аккаунта</a>
-        </div>
-    </div>
-</section>
+        <!-- Карточка профиля -->
+        <div class="profile-card-modern">
+            <div class="profile-header">
+                <div class="profile-avatar-large">
+                    {% set name_parts = user.full_name.split(' ') %}
+                    {% if name_parts|length >= 2 %}
+                        {{ name_parts[0][0]|upper }}{{ name_parts[1][0]|upper }}
+                    {% else %}
+                        {{ name_parts[0][0]|upper }}
+                    {% endif %}
+                </div>
+                <div class="profile-header-info">
+                    <h2>{{ user.full_name }}</h2>
+                    <p class="profile-email">{{ user.email }}</p>
+                </div>
+            </div>
 
-<!-- Мини-виджет AI-помощника -->
-<div class="ai-widget">
-    <button class="ai-widget-toggle" id="ai-widget-toggle" aria-label="Открыть AI-помощника">
-        <span class="ai-widget-toggle-icon">🤖</span>
+            <div class="profile-details">
+                <div class="profile-detail-item">
+                    <div class="profile-detail-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    <div class="profile-detail-content">
+                        <span class="profile-detail-label">Email</span>
+                        <span class="profile-detail-value">{{ user.email }}</span>
+                    </div>
+                </div>
+
+                <div class="profile-detail-item">
+                    <div class="profile-detail-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 21h18M5 21V7l8-4 8 4v14M13 21v-8a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v8"/>
+                        </svg>
+                    </div>
+                    <div class="profile-detail-content">
+                        <span class="profile-detail-label">Институт</span>
+                        <span class="profile-detail-value">{{ user.institute or 'Не указан' }}</span>
+                    </div>
+                </div>
+
+                <div class="profile-detail-item">
+                    <div class="profile-detail-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <div class="profile-detail-content">
+                        <span class="profile-detail-label">Группа</span>
+                        <span class="profile-detail-value">{{ user.group or 'Не указана' }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-actions">
+                <a href="/dashboard" class="profile-btn secondary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/>
+                    </svg>
+                    На главную
+                </a>
+                <a href="/logout" class="profile-btn danger">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    Выйти
+                </a>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- AI GigaChat Widget -->
+<div class="ai-widget" id="aiWidget">
+    <button class="ai-widget-toggle" id="aiWidgetToggle" title="Задать вопрос AI-помощнику">
+        <img src="/static/images/gigachat-logo.png" alt="GigaChat" class="gigachat-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="gigachat-icon-fallback" style="display: none;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+        </div>
     </button>
 
-    <div class="ai-widget-window hidden" id="ai-widget-window">
+    <div class="ai-widget-window" id="aiWidgetWindow" style="display: none;">
         <div class="ai-widget-header">
-            <span class="ai-widget-header-icon">🤖</span>
-            <div>
-                <div class="ai-widget-title">AI-помощник</div>
-                <div class="ai-widget-subtitle">Campus Connect</div>
+            <div class="ai-widget-avatar">
+                <img src="/static/images/gigachat-logo.png" alt="GigaChat" class="gigachat-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="ai-widget-avatar-fallback" style="display: none;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+                    </svg>
+                </div>
             </div>
-            <button class="ai-widget-close" id="ai-widget-close" aria-label="Закрыть">×</button>
+            <div class="ai-widget-info">
+                <div class="ai-widget-title">GigaChat Помощник</div>
+                <div class="ai-widget-subtitle">Онлайн</div>
+            </div>
+            <button class="ai-widget-close" id="aiWidgetClose">×</button>
         </div>
 
-        <div class="ai-widget-messages" id="ai-widget-messages">
-            <div class="ai-widget-msg ai-widget-msg--bot">
-                Привет! Я помогу с вопросами об УрФУ, кампусе и учёбе. Спроси что-нибудь 🙂
-            </div>
+        <div class="ai-widget-messages" id="aiWidgetMessages">
+            <div class="ai-widget-msg ai-widget-msg--bot">Привет! Я AI-помощник Campus Connect. Чем могу помочь?</div>
         </div>
 
-        <form class="ai-widget-input-row" id="ai-widget-form">
-            <input type="text" id="ai-widget-input" placeholder="Напиши сообщение..." autocomplete="off">
-            <button type="submit" class="ai-widget-send" aria-label="Отправить">➤</button>
-        </form>
+        <div class="ai-widget-suggestions" id="aiWidgetSuggestions">
+            <button class="suggestion-chip" data-message="Как изменить профиль?">Изменить профиль</button>
+            <button class="suggestion-chip" data-message="Какие есть сообщества?">Сообщества</button>
+            <button class="suggestion-chip" data-message="Как создать проект?">Создать проект</button>
+        </div>
+
+        <div class="ai-widget-input-wrapper">
+            <input type="text" id="aiWidgetInput" placeholder="Напиши вопрос..." autocomplete="off">
+            <button class="ai-widget-send" id="aiWidgetSend">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/>
+                </svg>
+            </button>
+        </div>
     </div>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
 <script>
-(async function() {
-    const token = localStorage.getItem('access_token');
-    if (!token) return;
+document.addEventListener('DOMContentLoaded', function() {
+    const widgetToggle = document.getElementById('aiWidgetToggle');
+    const widgetWindow = document.getElementById('aiWidgetWindow');
+    const widgetClose = document.getElementById('aiWidgetClose');
+    const widgetInput = document.getElementById('aiWidgetInput');
+    const widgetSend = document.getElementById('aiWidgetSend');
+    const widgetMessages = document.getElementById('aiWidgetMessages');
 
-    try {
-        const response = await fetch('/api/v1/auth/me', {
-            headers: { 'Authorization': 'Bearer ' + token }
-        });
-        if (!response.ok) return;
+    widgetToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isHidden = widgetWindow.style.display === 'none' || !widgetWindow.style.display;
+        widgetWindow.style.display = isHidden ? 'flex' : 'none';
+        if (isHidden) setTimeout(() => widgetInput.focus(), 100);
+    });
 
-        const user = await response.json();
-        document.getElementById('profile-name').textContent = user.full_name;
-        document.getElementById('profile-email').textContent = user.email;
-        document.getElementById('profile-institute').textContent = user.institute;
-        document.getElementById('profile-group').textContent = user.group_number;
+    widgetClose.addEventListener('click', function(e) {
+        e.stopPropagation();
+        widgetWindow.style.display = 'none';
+    });
 
-        const initial = (user.full_name || '?').trim().charAt(0).toUpperCase();
-        document.getElementById('profile-avatar').textContent = initial || '?';
-    } catch (error) {
-        console.error('Не удалось загрузить профиль', error);
+    function sendMessage(message) {
+        if (!message.trim()) return;
+        addMessage(message, 'user');
+        widgetInput.value = '';
+        showTypingIndicator();
+        setTimeout(() => {
+            removeTypingIndicator();
+            const response = generateMockResponse(message);
+            addMessage(response, 'bot');
+        }, 800 + Math.random() * 800);
     }
-})();
 
-// AI-виджет
-const aiToggle = document.getElementById('ai-widget-toggle');
-const aiWindow = document.getElementById('ai-widget-window');
-const aiClose = document.getElementById('ai-widget-close');
-const aiForm = document.getElementById('ai-widget-form');
-const aiInput = document.getElementById('ai-widget-input');
-const aiMessages = document.getElementById('ai-widget-messages');
-
-aiToggle.addEventListener('click', () => {
-    aiWindow.classList.toggle('hidden');
-    if (!aiWindow.classList.contains('hidden')) {
-        aiInput.focus();
+    function addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'ai-widget-msg ai-widget-msg--' + sender;
+        messageDiv.textContent = text;
+        widgetMessages.appendChild(messageDiv);
+        widgetMessages.scrollTop = widgetMessages.scrollHeight;
     }
-});
 
-aiClose.addEventListener('click', () => {
-    aiWindow.classList.add('hidden');
-});
+    function showTypingIndicator() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'ai-widget-msg ai-widget-msg--bot ai-widget-msg--typing';
+        typingDiv.id = 'typingIndicator';
+        typingDiv.innerHTML = '<span class="typing-dots"><span></span><span></span><span></span></span>';
+        widgetMessages.appendChild(typingDiv);
+        widgetMessages.scrollTop = widgetMessages.scrollHeight;
+    }
 
-function addMessage(text, sender) {
-    const el = document.createElement('div');
-    el.className = 'ai-widget-msg ai-widget-msg--' + sender;
-    el.textContent = text;
-    aiMessages.appendChild(el);
-    aiMessages.scrollTop = aiMessages.scrollHeight;
-}
+    function removeTypingIndicator() {
+        const indicator = document.getElementById('typingIndicator');
+        if (indicator) indicator.remove();
+    }
 
-aiForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const question = aiInput.value.trim();
-    if (!question) return;
-
-    addMessage(question, 'user');
-    aiInput.value = '';
-
-    const typingEl = document.createElement('div');
-    typingEl.className = 'ai-widget-msg ai-widget-msg--bot ai-widget-msg--typing';
-    typingEl.textContent = 'Печатает...';
-    aiMessages.appendChild(typingEl);
-    aiMessages.scrollTop = aiMessages.scrollHeight;
-
-    const token = localStorage.getItem('access_token');
-    try {
-        const response = await fetch('/api/v1/chat/ask?question=' + encodeURIComponent(question), {
-            method: 'POST',
-            headers: { 'Authorization': 'Bearer ' + token }
-        });
-        typingEl.remove();
-
-        if (response.ok) {
-            const data = await response.json();
-            addMessage(data.reply, 'bot');
+    function generateMockResponse(message) {
+        const lowerMessage = message.toLowerCase();
+        if (lowerMessage.includes('изменить профиль') || lowerMessage.includes('редактиров')) {
+            return 'Функция редактирования профиля скоро будет доступна. Пока ты можешь просматривать свою информацию.';
+        } else if (lowerMessage.includes('сообществ')) {
+            return 'У нас есть сообщества:\n• Basketball Club\n• IT Community\n• Design Club\n• GameDev\n• Entrepreneurship';
+        } else if (lowerMessage.includes('создать проект')) {
+            return 'Перейди в раздел "Проекты" и нажми "Создать проект или событие".';
+        } else if (lowerMessage.includes('привет')) {
+            return 'Привет! Чем могу помочь?';
         } else {
-            addMessage('Не получилось получить ответ. Попробуй ещё раз.', 'bot');
+            return 'Спасибо за вопрос! Пока я работаю в тестовом режиме.';
         }
-    } catch (error) {
-        typingEl.remove();
-        addMessage('Ошибка подключения к серверу.', 'bot');
     }
+
+    widgetSend.addEventListener('click', function(e) {
+        e.stopPropagation();
+        sendMessage(widgetInput.value);
+    });
+
+    widgetInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') sendMessage(widgetInput.value);
+    });
+
+    document.querySelectorAll('.suggestion-chip').forEach(function(chip) {
+        chip.addEventListener('click', function(e) {
+            e.stopPropagation();
+            sendMessage(this.getAttribute('data-message'));
+        });
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.ai-widget')) widgetWindow.style.display = 'none';
+    });
+
+    widgetWindow.addEventListener('click', function(e) { e.stopPropagation(); });
 });
 </script>
 {% endblock %}

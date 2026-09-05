@@ -33,19 +33,29 @@
             {% endif %}
 
             <div class="navbar-right">
-                {% if is_app_page %}
+                {% if is_app_page and user %}
+                    <a href="/profile" class="user-avatar-link" title="Профиль">
+                        <div class="user-avatar-circle">
+                            {% set name_parts = user.full_name.split(' ') %}
+                            {% if name_parts|length >= 2 %}
+                                {{ name_parts[0][0]|upper }}{{ name_parts[1][0]|upper }}
+                            {% else %}
+                                {{ name_parts[0][0]|upper }}
+                            {% endif %}
+                        </div>
+                    </a>
                     <a href="/logout" class="btn-logout">Выйти</a>
                 {% else %}
                     <span class="lang-switch">RU</span>
                     <span id="navbar-guest">
                         <a href="/login" class="btn-login">Войти</a>
                     </span>
-                    <span id="navbar-user" class="hidden">
-                        <a href="/profile" class="user-info">👤 <span id="navbar-user-name"></span></a>
-                        <a href="/logout" class="btn-logout">Выйти</a>
-                    </span>
-                {% endif %}
-            </div>
+                <span id="navbar-user" class="hidden">
+                    <a href="/profile" class="user-info">👤 <span id="navbar-user-name"></span></a>
+                    <a href="/logout" class="btn-logout">Выйти</a>
+                </span>
+            {% endif %}
+        </div>
         </div>
     </nav>
 
@@ -77,13 +87,23 @@
             window.location.href = '/login';
         }
 
-        // Проверка авторизации и обновление навбара
+    // Проверка авторизации и обновление навбара
         document.addEventListener('DOMContentLoaded', async function() {
             const token = localStorage.getItem('access_token');
             const path = window.location.pathname;
+            const isAuthPage = path === '/login' || path === '/register';
+            const isAppPage = ['/dashboard', '/profile', '/people', '/projects'].includes(path);
 
+        // Если мы на странице приложения (dashboard, profile и т.д.) —
+        // значит сервер уже проверил куку и пустил нас. Не делаем редирект!
+            if (isAppPage) {
+                console.log('Страница загружена через серверную авторизацию (кука)');
+                return;
+            }
+
+        // Для остальных страниц проверяем токен в localStorage
             if (!token) {
-                if (path !== '/login' && path !== '/register' && path !== '/') {
+                if (!isAuthPage && path !== '/') {
                     window.location.href = '/login';
                 }
                 return;
@@ -95,21 +115,20 @@
                 });
 
                 if (response.ok) {
-                    const user = await response.json();
-                    localStorage.setItem('user_data', JSON.stringify(user));
+                    const userData = await response.json();
+                    localStorage.setItem('user_data', JSON.stringify(userData));
 
                     const guestEl = document.getElementById('navbar-guest');
                     const userEl = document.getElementById('navbar-user');
                     const nameEl = document.getElementById('navbar-user-name');
                     if (guestEl) guestEl.classList.add('hidden');
                     if (userEl) userEl.classList.remove('hidden');
-                    if (nameEl) nameEl.textContent = user.full_name;
+                    if (nameEl) nameEl.textContent = userData.full_name;
                 } else {
-                    // Токен недействителен/просрочен — выходим
                     localStorage.removeItem('access_token');
                     localStorage.removeItem('user_data');
                     localStorage.removeItem('user_email');
-                    if (path !== '/login' && path !== '/register' && path !== '/') {
+                    if (!isAuthPage && path !== '/') {
                         window.location.href = '/login';
                     }
                 }

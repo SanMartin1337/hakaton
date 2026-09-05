@@ -123,7 +123,17 @@
             <div class="welcome-content">
                 <div class="welcome-greeting">
                     <h1>Привет, <span class="gradient-text">{{ user.full_name or 'Студент' }}</span></h1>
-                    <p class="welcome-subtitle">Добро пожаловать в цифровое пространство кампуса</p>
+                    <p class="welcome-subtitle">
+                        {% if user.institute and user.group %}
+                            {{ user.institute }}, группа {{ user.group }}
+                        {% elif user.institute %}
+                            {{ user.institute }}
+                        {% elif user.group %}
+                            Группа {{ user.group }}
+                        {% else %}
+                            Добро пожаловать в цифровое пространство кампуса
+                        {% endif %}
+                    </p>
                 </div>
             </div>
         </div>

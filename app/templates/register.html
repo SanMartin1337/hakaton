@@ -3,100 +3,214 @@
 {% block title %}Регистрация — Campus Connect{% endblock %}
 
 {% block content %}
-<div class="auth-page">
-    <div class="auth-container">
-        <div class="auth-card">
-            <div class="logo">
-                <span class="icon">🎓</span>
-                <h2>Регистрация</h2>
-                <p>Присоединяйся к сообществу УрФУ</p>
+<div class="auth-page-modern">
+    <div class="auth-container-modern">
+        <div class="auth-card-modern">
+            <div class="auth-header">
+                <div class="auth-logo">
+                   <img src="/static/images/logo.png" alt="Campus Connect" class="auth-logo-img">
+                </div>
+                <p class="auth-subtitle">Создай аккаунт</p>
             </div>
 
-            <form id="registerForm" onsubmit="register(event)">
-                <div class="form-group">
-                    <label>Полное имя</label>
-                    <input type="text" id="full_name" placeholder="Иван Петров" required>
+            {% if error %}
+            <div class="alert alert-error">{{ error }}</div>
+            {% endif %}
+
+            <form method="POST" action="/register" class="auth-form">
+                 <div class="form-group">
+                    <label for="full_name">ФИО</label>
+                    <input type="text" id="full_name" name="full_name" placeholder="Иванов Иван Иванович" required>
                 </div>
+
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="email" placeholder="student@urfu.ru" required>
+                    <label for="email">Email УрФУ</label>
+                    <input type="email" id="email" name="email" placeholder="your.email@urfu.me" required>
                 </div>
+
                 <div class="form-group">
-                    <label>Пароль</label>
-                    <input type="password" id="password" placeholder="••••••••" required minlength="6">
+                    <label for="institute">Институт</label>
+                    <input type="text" id="institute" name="institute" placeholder="ИРИТ-РТФ" required>
                 </div>
+
                 <div class="form-group">
-                    <label>Институт</label>
-                    <input type="text" id="institute" placeholder="ИРИТ-РТФ" required>
+                    <label for="group">Группа</label>
+                    <input type="text" id="group" name="group" placeholder="РИ-123456" required>
                 </div>
+
                 <div class="form-group">
-                    <label>Группа</label>
-                    <input type="text" id="group_number" placeholder="РИ-160934" required>
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
                 </div>
-                <div id="alert" class="hidden"></div>
-                <button type="submit" class="btn-submit">Зарегистрироваться</button>
+
+                <div class="form-group">
+                    <label for="confirm_password">Подтвердите пароль</label>
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-submit-modern">Зарегистрироваться</button>
             </form>
 
-            <div class="auth-footer">
-                Уже есть аккаунт? <a href="/login">Войти</a>
+            <div class="auth-footer-modern">
+                <p>Уже есть аккаунт? <a href="/login">Войти</a></p>
             </div>
         </div>
     </div>
 </div>
 
+<!-- AI GigaChat Widget -->
+<div class="ai-widget" id="aiWidget">
+    <button class="ai-widget-toggle" id="aiWidgetToggle" title="Задать вопрос AI-помощнику">
+        <img src="/static/images/gigachat-logo.png" alt="GigaChat" class="gigachat-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="gigachat-icon-fallback" style="display: none;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                <line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+        </div>
+    </button>
+
+    <div class="ai-widget-window" id="aiWidgetWindow" style="display: none;">
+        <div class="ai-widget-header">
+            <div class="ai-widget-avatar">
+                <img src="/static/images/gigachat-logo.png" alt="GigaChat" class="gigachat-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="ai-widget-avatar-fallback" style="display: none;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                        <line x1="9" y1="9" x2="9.01" y2="9"/>
+                        <line x1="15" y1="9" x2="15.01" y2="9"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="ai-widget-info">
+                <div class="ai-widget-title">GigaChat Помощник</div>
+                <div class="ai-widget-subtitle">Онлайн</div>
+            </div>
+            <button class="ai-widget-close" id="aiWidgetClose">×</button>
+        </div>
+
+        <div class="ai-widget-messages" id="aiWidgetMessages">
+            <div class="ai-widget-msg ai-widget-msg--bot">
+                Привет! Я AI-помощник Campus Connect. Чем могу помочь?
+            </div>
+        </div>
+
+        <div class="ai-widget-suggestions" id="aiWidgetSuggestions">
+            <button class="suggestion-chip" data-message="Как зарегистрироваться?">Регистрация</button>
+            <button class="suggestion-chip" data-message="Какой email использовать?">Email УрФУ</button>
+            <button class="suggestion-chip" data-message="Что такое Campus Connect?">О платформе</button>
+        </div>
+
+        <div class="ai-widget-input-wrapper">
+            <input type="text" id="aiWidgetInput" placeholder="Напиши вопрос..." autocomplete="off">
+            <button class="ai-widget-send" id="aiWidgetSend">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"/>
+                    <polygon points="22,2 15,22 11,13 2,9"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
 <script>
-async function register(event) {
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    // ===== AI Widget =====
+    const widgetToggle = document.getElementById('aiWidgetToggle');
+    const widgetWindow = document.getElementById('aiWidgetWindow');
+    const widgetClose = document.getElementById('aiWidgetClose');
+    const widgetInput = document.getElementById('aiWidgetInput');
+    const widgetSend = document.getElementById('aiWidgetSend');
+    const widgetMessages = document.getElementById('aiWidgetMessages');
 
-    const full_name = document.getElementById('full_name').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const institute = document.getElementById('institute').value;
-    const group_number = document.getElementById('group_number').value;
-    const alert = document.getElementById('alert');
-    const button = document.querySelector('.btn-submit');
+    widgetToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isHidden = widgetWindow.style.display === 'none' || !widgetWindow.style.display;
+        widgetWindow.style.display = isHidden ? 'flex' : 'none';
+        if (isHidden) setTimeout(() => widgetInput.focus(), 100);
+    });
 
-    button.disabled = true;
-    button.textContent = 'Регистрация...';
+    widgetClose.addEventListener('click', function(e) {
+        e.stopPropagation();
+        widgetWindow.style.display = 'none';
+    });
 
-    try {
-        const response = await fetch('/api/v1/auth/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                full_name,
-                email,
-                password,
-                institute,
-                group_number
-            })
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            showAlert(alert, '✅ Регистрация успешна! Перенаправляем на вход...', 'success');
-            setTimeout(() => {
-                window.location.href = '/login';
-            }, 2000);
-        } else {
-            showAlert(alert, '❌ ' + data.detail, 'error');
-            button.disabled = false;
-            button.textContent = 'Зарегистрироваться';
-        }
-    } catch (error) {
-        showAlert(alert, '❌ Ошибка подключения к серверу', 'error');
-        button.disabled = false;
-        button.textContent = 'Зарегистрироваться';
+    function sendMessage(message) {
+        if (!message.trim()) return;
+        addMessage(message, 'user');
+        widgetInput.value = '';
+        showTypingIndicator();
+        setTimeout(() => {
+            removeTypingIndicator();
+            const response = generateMockResponse(message);
+            addMessage(response, 'bot');
+        }, 800 + Math.random() * 800);
     }
-}
 
-function showAlert(element, message, type) {
-    element.classList.remove('hidden', 'alert-error', 'alert-success');
-    element.classList.add('alert', 'alert-' + type);
-    element.textContent = message;
-}
+    function addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'ai-widget-msg ai-widget-msg--' + sender;
+        messageDiv.textContent = text;
+        widgetMessages.appendChild(messageDiv);
+        widgetMessages.scrollTop = widgetMessages.scrollHeight;
+    }
+
+    function showTypingIndicator() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'ai-widget-msg ai-widget-msg--bot ai-widget-msg--typing';
+        typingDiv.id = 'typingIndicator';
+        typingDiv.innerHTML = '<span class="typing-dots"><span></span><span></span><span></span></span>';
+        widgetMessages.appendChild(typingDiv);
+        widgetMessages.scrollTop = widgetMessages.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+        const indicator = document.getElementById('typingIndicator');
+        if (indicator) indicator.remove();
+    }
+
+    function generateMockResponse(message) {
+        const lowerMessage = message.toLowerCase();
+        if (lowerMessage.includes('зарегистриров')) {
+            return 'Заполни форму: укажи ФИО, email @urfu.me и придумай надёжный пароль.';
+        } else if (lowerMessage.includes('email') || lowerMessage.includes('почт')) {
+            return 'Используй свой корпоративный email УрФУ (оканчивается на @urfu.me).';
+        } else if (lowerMessage.includes('campus connect') || lowerMessage.includes('о платформ')) {
+            return 'Campus Connect — цифровая экосистема для студентов УрФУ. Здесь ты найдёшь проекты, события и единомышленников!';
+        } else if (lowerMessage.includes('привет')) {
+            return 'Привет! Чем могу помочь?';
+        } else {
+            return 'Спасибо за вопрос! Пока я работаю в тестовом режиме.';
+        }
+    }
+
+    widgetSend.addEventListener('click', function(e) {
+        e.stopPropagation();
+        sendMessage(widgetInput.value);
+    });
+
+    widgetInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') sendMessage(widgetInput.value);
+    });
+
+    document.querySelectorAll('.suggestion-chip').forEach(function(chip) {
+        chip.addEventListener('click', function(e) {
+            e.stopPropagation();
+            sendMessage(this.getAttribute('data-message'));
+        });
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.ai-widget')) widgetWindow.style.display = 'none';
+    });
+
+    widgetWindow.addEventListener('click', function(e) { e.stopPropagation(); });
+});
 </script>
 {% endblock %}
