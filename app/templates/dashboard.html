@@ -292,24 +292,54 @@
                     </div>
                 </section>
 
-                <!-- Люди -->
+
+                <!-- Мои менторы -->
                 <section class="modern-card">
                     <div class="card-header-modern">
                         <div class="card-title-wrapper">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                                <circle cx="9" cy="7" r="4"/>
-                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/>
+                                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
                             </svg>
-                            <h3>Стоит познакомиться</h3>
+                            <h3>Мои менторы</h3>
                         </div>
-                        <a href="/people" class="card-action-link">Все</a>
+                        <a href="/mentors" class="card-action-link">Все менторы</a>
                     </div>
                     <div class="card-content">
-                        <div class="empty-state">
-                            <p>Рекомендации появятся позже</p>
-                        </div>
+                        {% if my_mentors %}
+                            <div class="my-mentors-list">
+                                {% for mentor in my_mentors %}
+                                <div class="my-mentor-item">
+                                    <div class="my-mentor-avatar">
+                                        {% set name_parts = mentor.full_name.split(' ') %}
+                                        {% if name_parts|length >= 2 %}
+                                            {{ name_parts[0][0]|upper }}{{ name_parts[1][0]|upper }}
+                                        {% else %}
+                                            {{ name_parts[0][0]|upper }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="my-mentor-info">
+                                        <h4>{{ mentor.full_name }}</h4>
+                                        {% if mentor.mentor_skills %}
+                                        <p class="my-mentor-skills">{{ mentor.mentor_skills }}</p>
+                                        {% endif %}
+                                    </div>
+                                    {% if mentor.status == 'accepted' %}
+                                        <span class="mentor-status-badge accepted">Принято</span>
+                                    {% elif mentor.status == 'pending' %}
+                                        <span class="mentor-status-badge pending">Ожидание</span>
+                                    {% else %}
+                                        <span class="mentor-status-badge declined">Отклонено</span>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="empty-state">
+                                <p>Пока нет добавленных менторов</p>
+                                <span class="empty-state-hint">Найди наставника на странице <a href="/mentors">Менторы</a></span>
+                            </div>
+                        {% endif %}
                     </div>
                 </section>
             </div>

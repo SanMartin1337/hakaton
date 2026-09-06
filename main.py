@@ -419,7 +419,6 @@ async def dashboard(request: Request, db: Session = Depends(get_db)):
     if not current_user:
         return RedirectResponse(url="/login", status_code=303)
 
-
     favorites = db.query(UserEvent).filter(UserEvent.user_id == current_user.id).all()
     favorite_events = []
     for fav in favorites:
@@ -427,10 +426,29 @@ async def dashboard(request: Request, db: Session = Depends(get_db)):
         if event_data:
             favorite_events.append({"id": fav.event_id, **event_data})
 
+    # ===== Мои менторы =====
+    mentor_requests = db.query(FriendRequest).filter(
+        FriendRequest.sender_id == current_user.id,
+        FriendRequest.request_type == "mentorship"
+    ).all()
+
+    my_mentors = []
+    for req in mentor_requests:
+        mentor = db.query(user.User).filter(user.User.id == req.receiver_id).first()
+        if mentor:
+            my_mentors.append({
+                "id": mentor.id,
+                "full_name": mentor.full_name,
+                "institute": mentor.institute,
+                "mentor_skills": mentor.mentor_skills,
+                "status": req.status  # "pending" / "accepted" / "declined"
+            })
+
     return templates.TemplateResponse("dashboard.html", {
         "request": request,
         "user": current_user,
-        "favorite_events": favorite_events
+        "favorite_events": favorite_events,
+        "my_mentors": my_mentors
     })
 
 @app.get("/profile")
@@ -573,6 +591,7 @@ async def send_friend_request(request: Request, db: Session = Depends(get_db)):
     )
     db.add(new_request)
     db.commit()
+
     return {"status": "sent"}
 
 @app.post("/api/v1/friends/respond")
