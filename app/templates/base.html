@@ -11,7 +11,7 @@
 <body>
     {% set path = request.url.path %}
     {% set is_auth_page = path in ['/login', '/register'] %}
-    {% set is_app_page = path in ['/dashboard', '/profile', '/people'] %}
+    {% set is_app_page = path != '/' %}
 
     <!-- Навигация -->
     <nav class="navbar{% if is_auth_page %} navbar--auth{% elif is_app_page %} navbar--app{% endif %}">
