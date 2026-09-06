@@ -544,28 +544,36 @@ async def send_friend_request(request: Request, db: Session = Depends(get_db)):
 
     body = await request.json()
     receiver_id = body.get("receiver_id")
+    request_type = body.get("request_type", "friend")
 
     if receiver_id == current_user.id:
-        return {"error": "Нельзя добавить себя в друзья"}
+        return {"error": "Нельзя отправить заявку самому себе"}
 
-    # Проверяем, нет ли уже активной заявки или дружбы
     existing = db.query(FriendRequest).filter(
         ((FriendRequest.sender_id == current_user.id) & (FriendRequest.receiver_id == receiver_id)) |
-        ((FriendRequest.sender_id == receiver_id) & (FriendRequest.receiver_id == current_user.id))
+        ((FriendRequest.sender_id == receiver_id) & (FriendRequest.receiver_id == current_user.id)),
+        FriendRequest.request_type == request_type
     ).first()
 
     if existing:
         if existing.status == "pending":
             return {"status": "already_pending"}
         elif existing.status == "accepted":
-            return {"status": "already_friends"}
+            return {"status": "already_connected"}
+        elif existing.status == "declined":
+            existing.status = "pending"
+            db.commit()
+            return {"status": "sent"}
 
-    new_request = FriendRequest(sender_id=current_user.id, receiver_id=receiver_id, status="pending")
+    new_request = FriendRequest(
+        sender_id=current_user.id,
+        receiver_id=receiver_id,
+        status="pending",
+        request_type=request_type
+    )
     db.add(new_request)
     db.commit()
-
     return {"status": "sent"}
-
 
 @app.post("/api/v1/friends/respond")
 async def respond_to_friend_request(request: Request, db: Session = Depends(get_db)):
@@ -590,6 +598,38 @@ async def respond_to_friend_request(request: Request, db: Session = Depends(get_
     db.commit()
 
     return {"status": "updated"}
+
+@app.get("/mentors")
+async def mentors_page(request: Request, db: Session = Depends(get_db)):
+    current_user = get_current_user_from_cookie(request, db)
+    if not current_user:
+        return RedirectResponse(url="/login", status_code=303)
+
+    mentors = db.query(user.User).filter(
+        user.User.is_mentor == True,
+        user.User.id != current_user.id
+    ).all()
+
+    return templates.TemplateResponse("mentors.html", {
+        "request": request,
+        "user": current_user,
+        "mentors": mentors
+    })
+
+
+@app.post("/api/v1/profile/mentor")
+async def toggle_mentor(request: Request, db: Session = Depends(get_db)):
+    current_user = get_current_user_from_cookie(request, db)
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Не авторизован")
+
+    body = await request.json()
+    current_user.is_mentor = body.get("is_mentor", not current_user.is_mentor)
+    current_user.mentor_bio = body.get("mentor_bio", current_user.mentor_bio)
+    current_user.mentor_skills = body.get("mentor_skills", current_user.mentor_skills)
+    db.commit()
+
+    return {"status": "ok", "is_mentor": current_user.is_mentor}
 
 @app.get("/about")
 async def about_page(request: Request, db: Session = Depends(get_db)):

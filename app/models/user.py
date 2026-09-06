@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Boolean, Text
 from app.database import Base
 
 class User(Base):
@@ -10,3 +10,8 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     institute = Column(String, nullable=True)
     group = Column(String, nullable=True)
+
+    # --- менторство ---
+    is_mentor = Column(Boolean, default=False)
+    mentor_bio = Column(Text, nullable=True)
+    mentor_skills = Column(String, nullable=True)

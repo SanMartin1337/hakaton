@@ -92,7 +92,7 @@
             const token = localStorage.getItem('access_token');
             const path = window.location.pathname;
             const isAuthPage = path === '/login' || path === '/register';
-            const isAppPage = ['/dashboard', '/profile', '/people', '/projects', '/events', '/friends', '/about'].includes(path);
+            const isAppPage = ['/dashboard', '/profile', '/people', '/projects', '/events', '/friends', '/about', '/mentors'].includes(path);
 
             if (isAppPage) {
                 console.log('Страница загружена через серверную авторизацию (кука)');
