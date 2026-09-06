@@ -149,7 +149,12 @@
                     {% endif %}
                 </div>
                 <div class="profile-header-info">
-                    <h2>{{ user.full_name }}</h2>
+                    <h2>
+                        {{ user.full_name }}
+                        {% if user.is_mentor %}
+                        <span class="mentor-badge">🎓 Ментор</span>
+                        {% endif %}
+                    </h2>
                     <p class="profile-email">{{ user.email }}</p>
                 </div>
             </div>
@@ -192,6 +197,42 @@
                     <div class="profile-detail-content">
                         <span class="profile-detail-label">Группа</span>
                         <span class="profile-detail-value">{{ user.group or 'Не указана' }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mentor-section">
+                <div class="mentor-section-item">
+                    <div class="mentor-section-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/>
+                            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                        </svg>
+                    </div>
+                    <div class="mentor-section-content">
+                        <div class="mentor-section-top">
+                            <span class="profile-detail-label">Менторство</span>
+                            <label class="mentor-toggle">
+                                <input type="checkbox" id="isMentorToggle" {% if user.is_mentor %}checked{% endif %}>
+                                <span class="mentor-toggle-slider"></span>
+                            </label>
+                        </div>
+                        <p class="mentor-section-hint">Включи, если готов помогать другим студентам как ментор</p>
+
+                        <div id="mentorFields" class="mentor-fields {% if not user.is_mentor %}hidden{% endif %}">
+                            <div class="mentor-field">
+                                <label for="mentorBio">О себе как о менторе</label>
+                                <textarea id="mentorBio" rows="3" placeholder="Например: помогаю с Python, разбором первого проекта, подготовкой к собеседованиям">{{ user.mentor_bio or '' }}</textarea>
+                            </div>
+                            <div class="mentor-field">
+                                <label for="mentorSkills">Навыки (через запятую)</label>
+                                <input type="text" id="mentorSkills" placeholder="Python, ML, публичные выступления" value="{{ user.mentor_skills or '' }}">
+                            </div>
+                            <div class="mentor-save-row">
+                                <button type="button" id="saveMentorBtn" class="profile-btn secondary mentor-save-btn">Сохранить</button>
+                                <span id="mentorSaveStatus" class="mentor-save-status"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -357,6 +398,52 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     widgetWindow.addEventListener('click', function(e) { e.stopPropagation(); });
+
+
+    // ===== Менторство =====
+    const isMentorToggle = document.getElementById('isMentorToggle');
+    const mentorFields = document.getElementById('mentorFields');
+    const saveMentorBtn = document.getElementById('saveMentorBtn');
+    const mentorSaveStatus = document.getElementById('mentorSaveStatus');
+
+    function saveMentorProfile() {
+        const isMentor = isMentorToggle.checked;
+        const bio = document.getElementById('mentorBio').value;
+        const skills = document.getElementById('mentorSkills').value;
+
+        fetch('/api/v1/profile/mentor', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                is_mentor: isMentor,
+                mentor_bio: bio,
+                mentor_skills: skills
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            mentorSaveStatus.textContent = 'Сохранено ✓';
+            mentorSaveStatus.style.color = '#10b981';
+            setTimeout(() => { mentorSaveStatus.textContent = ''; }, 2000);
+        })
+        .catch(err => {
+            mentorSaveStatus.textContent = 'Ошибка сохранения';
+            mentorSaveStatus.style.color = '#ef4444';
+        });
+    }
+
+    if (isMentorToggle) {
+        isMentorToggle.addEventListener('change', function() {
+            mentorFields.classList.toggle('hidden', !this.checked);
+            saveMentorProfile();
+        });
+    }
+
+    if (saveMentorBtn) {
+        saveMentorBtn.addEventListener('click', function() {
+            saveMentorProfile();
+        });
+    }
 });
 </script>
 {% endblock %}

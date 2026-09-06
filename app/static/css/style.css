@@ -3131,3 +3131,169 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* ===== Менторство ===== */
+
+.mentor-badge {
+    display: inline-block;
+    background: rgba(59, 130, 246, 0.12);
+    color: #1e3a8a;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.mentor-section {
+    margin-top: 16px;
+    margin-bottom: 32px;
+}
+
+.mentor-section-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+    background: #f9fafb;
+    border-radius: 12px;
+    transition: all 0.2s;
+}
+
+.mentor-section-item:hover {
+    background: #f3f4f6;
+}
+
+.mentor-section-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3b82f6;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.mentor-section-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.mentor-section-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+
+.mentor-section-hint {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 0 0 16px 0;
+}
+
+.mentor-toggle {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.mentor-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.mentor-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #d1d5db;
+    transition: .2s;
+    border-radius: 999px;
+}
+
+.mentor-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .2s;
+    border-radius: 50%;
+}
+
+.mentor-toggle input:checked + .mentor-toggle-slider {
+    background: linear-gradient(135deg, #3b82f6 0%, #1e3a8a 100%);
+}
+
+.mentor-toggle input:checked + .mentor-toggle-slider:before {
+    transform: translateX(18px);
+}
+
+.mentor-fields.hidden {
+    display: none;
+}
+
+.mentor-field {
+    margin-bottom: 14px;
+}
+
+.mentor-field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+}
+
+.mentor-field textarea,
+.mentor-field input[type="text"] {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #e5e7eb;
+    background: white;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #1f2937;
+    resize: vertical;
+    transition: border-color 0.2s;
+}
+
+.mentor-field textarea:focus,
+.mentor-field input[type="text"]:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.mentor-save-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mentor-save-btn {
+    flex: none;
+    padding: 10px 20px;
+}
+
+.mentor-save-status {
+    font-size: 13px;
+    color: #10b981;
+    font-weight: 500;
+}
