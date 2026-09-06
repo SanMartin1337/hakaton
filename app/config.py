@@ -18,6 +18,7 @@ class Settings:
     GIGACHAT_CLIENT_ID = os.getenv("GIGACHAT_CLIENT_ID", "")
     GIGACHAT_SECRET = os.getenv("GIGACHAT_SECRET", "")
     GIGACHAT_SCOPE = os.getenv("GIGACHAT_SCOPE", "GIGACHAT_API_PERS")
+    GIGACHAT_CREDENTIALS = os.getenv("GIGACHAT_CREDENTIALS", "")
 
 
 settings = Settings()

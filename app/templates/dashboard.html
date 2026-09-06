@@ -523,22 +523,46 @@ document.querySelectorAll('.fav-remove-btn').forEach(function(btn) {
     });
 
     // Отправка сообщения
-    function sendMessage(message) {
+    // Отправка сообщения (теперь ходит на реальный бэкенд)
+    async function sendMessage(message) {
         if (!message.trim()) return;
         addMessage(message, 'user');
         widgetInput.value = '';
         showTypingIndicator();
-        setTimeout(() => {
+
+        try {
+            const response = await fetch('/api/v1/chat/ask', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: message })
+            });
+
             removeTypingIndicator();
-            const response = generateMockResponse(message);
-            addMessage(response, 'bot');
-        }, 800 + Math.random() * 800);
+
+            const data = await response.json();
+            console.log('Ответ сервера:', response.status, data);
+
+            if (response.ok && data.reply) {
+                addMessage(data.reply, 'bot');
+            } else {
+                // Показываем ВСЁ, что вернул сервер
+                const errorMsg = data.reply || data.detail || JSON.stringify(data);
+                addMessage(`⚠️ Ошибка [HTTP ${response.status}]: ${errorMsg}`, 'bot');
+            }
+        } catch (error) {
+            removeTypingIndicator();
+            addMessage('❌ Не удалось связаться с сервером. Проверь, запущен ли uvicorn.', 'bot');
+            console.error('Fetch Error:', error);
+        }
     }
 
+
+    // Отрисовка сообщения (теперь поддерживает переносы строк \n)
     function addMessage(text, sender) {
         const messageDiv = document.createElement('div');
         messageDiv.className = 'ai-widget-msg ai-widget-msg--' + sender;
-        messageDiv.textContent = text;
+        // ВАЖНО: используем innerText вместо textContent, чтобы нейросеть могла делать списки и абзацы
+        messageDiv.innerText = text;
         widgetMessages.appendChild(messageDiv);
         widgetMessages.scrollTop = widgetMessages.scrollHeight;
     }
