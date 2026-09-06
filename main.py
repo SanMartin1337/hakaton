@@ -284,40 +284,7 @@ async def get_favorites(request: Request, db: Session = Depends(get_db)):
     return result
 
 
-@app.post("/api/v1/friends/request")
-async def send_friend_request(request: Request, db: Session = Depends(get_db)):
-    current_user = get_current_user_from_cookie(request, db)
-    if not current_user:
-        raise HTTPException(status_code=401, detail="Не авторизован")
 
-    body = await request.json()
-    receiver_id = body.get("receiver_id")
-
-    if receiver_id == current_user.id:
-        return {"error": "Нельзя добавить себя в друзья"}
-
-    # Проверяем ВСЕ возможные варианты существующих заявок
-    existing = db.query(FriendRequest).filter(
-        ((FriendRequest.sender_id == current_user.id) & (FriendRequest.receiver_id == receiver_id)) |
-        ((FriendRequest.sender_id == receiver_id) & (FriendRequest.receiver_id == current_user.id))
-    ).first()
-
-    if existing:
-        if existing.status == "pending":
-            return {"status": "already_pending"}
-        elif existing.status == "accepted":
-            return {"status": "already_friends"}
-        elif existing.status == "declined":
-            # Если была отклонена, создаем новую заявку
-            existing.status = "pending"
-            db.commit()
-            return {"status": "sent"}
-
-    new_request = FriendRequest(sender_id=current_user.id, receiver_id=receiver_id, status="pending")
-    db.add(new_request)
-    db.commit()
-
-    return {"status": "sent"}
 
 @app.post("/login")
 async def login_submit(
@@ -562,11 +529,12 @@ async def send_friend_request(request: Request, db: Session = Depends(get_db)):
 
     body = await request.json()
     receiver_id = body.get("receiver_id")
-    request_type = body.get("request_type", "friend")
+    request_type = body.get("request_type", "friend")   # ← ЧИТАЕМ тип заявки
 
     if receiver_id == current_user.id:
         return {"error": "Нельзя отправить заявку самому себе"}
 
+    # Ищем существующую заявку ТОЛЬКО того же типа
     existing = db.query(FriendRequest).filter(
         ((FriendRequest.sender_id == current_user.id) & (FriendRequest.receiver_id == receiver_id)) |
         ((FriendRequest.sender_id == receiver_id) & (FriendRequest.receiver_id == current_user.id)),
@@ -587,7 +555,7 @@ async def send_friend_request(request: Request, db: Session = Depends(get_db)):
         sender_id=current_user.id,
         receiver_id=receiver_id,
         status="pending",
-        request_type=request_type
+        request_type=request_type                        # ← СОХРАНЯЕМ тип
     )
     db.add(new_request)
     db.commit()

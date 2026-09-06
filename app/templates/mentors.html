@@ -244,7 +244,8 @@
 {% block scripts %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Поиск по имени и навыкам
+
+    // ===== 1. Поиск по имени и навыкам =====
     const searchInput = document.getElementById('mentorsSearch');
     const mentorCards = document.querySelectorAll('.mentor-card');
 
@@ -258,38 +259,96 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-});
 
-// Запрос менторства (переиспользуем /api/v1/friends/request с request_type)
-document.querySelectorAll('.request-mentor-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        const userId = this.getAttribute('data-user-id');
-        const thisBtn = this;
+    // ===== 2. Запрос менторства =====
+    document.querySelectorAll('.request-mentor-btn').forEach(function(btn) {
+        btn.addEventListener('click', async function(e) {
+            e.preventDefault();
 
-        fetch('/api/v1/friends/request', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({receiver_id: parseInt(userId), request_type: 'mentorship'})
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.status === 'sent') {
-                thisBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>';
-                thisBtn.style.color = '#10b981';
-                thisBtn.style.borderColor = '#10b981';
-                thisBtn.title = 'Запрос отправлен';
-                thisBtn.disabled = true;
-            } else if (data.status === 'already_pending' || data.status === 'already_connected') {
-                thisBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>';
-                thisBtn.style.color = '#6b7280';
-                thisBtn.title = 'Запрос уже отправлен или менторство уже активно';
-                thisBtn.disabled = true;
-            } else if (data.error) {
-                alert(data.error);
+            const userId = this.getAttribute('data-user-id');
+            const thisBtn = this;
+
+            console.log('🟢 Клик по кнопке, отправляем запрос на ментора id=', userId);
+
+            // Блокируем кнопку, чтобы не нажимали дважды
+            thisBtn.disabled = true;
+            const originalTitle = thisBtn.title;
+            thisBtn.title = 'Отправка...';
+
+            try {
+                // Делаем запрос
+                const response = await fetch('/api/v1/friends/request', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',          // ← важно: отправляем куки
+                    body: JSON.stringify({
+                        receiver_id: parseInt(userId),
+                        request_type: 'mentorship'
+                    })
+                });
+
+                console.log('📨 Ответ сервера, статус:', response.status);
+
+                // Читаем JSON ответа
+                let data;
+                const contentType = response.headers.get('content-type') || '';
+                if (contentType.includes('application/json')) {
+                    data = await response.json();
+                } else {
+                    // Сервер вернул не JSON (например, HTML-страницу 404 или 500)
+                    throw new Error('Сервер вернул не JSON. Текст: ' + (await response.text()).slice(0, 200));
+                }
+
+                console.log('📦 Данные от сервера:', data);
+
+                // === ПРОВЕРКА HTTP-СТАТУСА ===
+                if (!response.ok) {
+                    // Сервер вернул 4xx или 5xx — это ошибка
+                    throw new Error(
+                        data.detail || data.error ||
+                        ('Ошибка сервера ' + response.status)
+                    );
+                }
+
+                // === РАЗБОР БИЗНЕС-ЛОГИКИ ===
+                if (data.status === 'sent') {
+                    thisBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>';
+                    thisBtn.style.color = '#10b981';
+                    thisBtn.style.borderColor = '#10b981';
+                    thisBtn.title = 'Запрос отправлен';
+                    console.log('✅ Заявка успешно создана');
+
+                } else if (data.status === 'already_pending' || data.status === 'already_connected') {
+                    thisBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg>';
+                    thisBtn.style.color = '#6b7280';
+                    thisBtn.style.borderColor = '#6b7280';
+                    thisBtn.title = 'Заявка уже существует';
+                    console.log('ℹ️ Заявка уже была ранее:', data.status);
+
+                } else if (data.error) {
+                    // Бэкенд вернул 200, но в теле есть поле error
+                    alert('⚠️ ' + data.error);
+                    thisBtn.disabled = false;
+                    thisBtn.title = originalTitle;
+                } else {
+                    // Неизвестный ответ
+                    console.warn('❓ Неизвестный ответ сервера:', data);
+                    alert('Неожиданный ответ от сервера. Проверь консоль (F12).');
+                    thisBtn.disabled = false;
+                    thisBtn.title = originalTitle;
+                }
+
+            } catch (err) {
+                // Любая ошибка: сеть, HTTP, JSON — попадает сюда
+                console.error('❌ Ошибка при отправке запроса:', err);
+                alert('❌ Не удалось отправить запрос ментору:\n' + err.message);
+                // Возвращаем кнопку в рабочее состояние
+                thisBtn.disabled = false;
+                thisBtn.title = originalTitle;
             }
-        })
-        .catch(err => console.error('Ошибка:', err));
+        });
     });
+
 });
 </script>
 {% endblock %}
