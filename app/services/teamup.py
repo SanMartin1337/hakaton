@@ -1,4 +1,5 @@
 import os
+import re
 import json
 
 import requests
@@ -8,9 +9,10 @@ from app.config import settings
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+# база TeamUp лежит в корне проекта (рядом с main.py)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DB_FILE = os.path.join(BASE_DIR, "teamup_db.json")
-MODEL_NAME = "GigaChat"
+MODEL_NAME = "GigaChat"   # обычная модель — та же, что у AI-виджета
 
 JSON_SYSTEM_PROMPT = (
     "Ты — строгий механизм извлечения данных для платформы «UrFU TeamUp».\n"
@@ -22,6 +24,7 @@ JSON_SYSTEM_PROMPT = (
     "Далее следует JSON-схема:\n"
     "{\n"
     '  "user_type": "student" or "project_leader",\n'
+    '  "contact": "средство связи, если указано в тексте (Telegram @username, email или телефон), иначе пустая строка",\n'
     '  "extracted_data": {\n'
     '    "name_or_title": "Name of the student OR Title of the project",\n'
     '    "core_skills_or_needs": ["list", "of", "skills", "or", "technologies"],\n'
@@ -68,6 +71,36 @@ def _ask_giga(messages: list) -> str:
 
 
 # =====================================================
+# Извлечение средства связи из свободного текста
+# =====================================================
+def extract_contact(text: str) -> str:
+    if not text:
+        return ""
+
+    # email
+    m = re.search(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", text)
+    if m:
+        return m.group(0)
+
+    # ссылка t.me/username или telegram.me/username
+    m = re.search(r"(?:https?://)?(?:t\.me|telegram\.me)/([A-Za-z0-9_]{5,})", text)
+    if m:
+        return "@" + m.group(1)
+
+    # @username (но НЕ часть email: перед @ не должно быть букв/точек/плюсов)
+    m = re.search(r"(?<![A-Za-z0-9._%+-])@([A-Za-z0-9_]{5,32})", text)
+    if m:
+        return "@" + m.group(1)
+
+    # телефон
+    m = re.search(r"\+?\d[\d\s\-\(\)]{10,15}\d", text)
+    if m:
+        return m.group(0).strip()
+
+    return ""
+
+
+# =====================================================
 # ФУНКЦИЯ 1: текст -> структурированный JSON-профиль
 # =====================================================
 def extract_profile_to_dict(user_input: str) -> dict:
@@ -88,6 +121,7 @@ def extract_profile_to_dict(user_input: str) -> dict:
 
 # =====================================================
 # ФУНКЦИЯ 2: сохранение профиля в JSON-базу
+# (один аккаунт = один профиль: повторное сохранение обновляет запись)
 # =====================================================
 def save_profile_to_db(profile_data: dict, filename: str = DB_FILE) -> bool:
     if not profile_data or "error" in profile_data:
@@ -104,6 +138,7 @@ def save_profile_to_db(profile_data: dict, filename: str = DB_FILE) -> bool:
     else:
         database = []
 
+    # заменяем старую запись ТОГО ЖЕ пользователя, чтобы не плодить дубликаты
     user_id = profile_data.get("user_id")
     if user_id is not None:
         database = [r for r in database if r.get("user_id") != user_id]
@@ -127,7 +162,7 @@ def get_db_records(filename: str = DB_FILE) -> list:
 
 
 # =====================================================
-# ФУНКЦИЯ 3: мэтчинг (тимлид <-> студенты)
+# ФУНКЦИЯ 3: двусторонний мэтчинг (тимлид <-> студенты)
 # =====================================================
 def query_matchmaker(search_context: str, look_for_type: str, filename: str = DB_FILE) -> str:
     look_for_type = str(look_for_type).strip().lower()
@@ -148,10 +183,12 @@ def query_matchmaker(search_context: str, look_for_type: str, filename: str = DB
     pool_text = ""
     for idx, item in enumerate(target_pool):
         data = item["extracted_data"]
+        contact = item.get("contact") or data.get("contact") or "не указан"
         pool_text += (
             f"- Вариант #{idx + 1}: {data['name_or_title']}. "
             f"Стек/Требования: {', '.join(data['core_skills_or_needs'])}. "
-            f"Описание: {data['summary_description']}\n"
+            f"Описание: {data['summary_description']}. "
+            f"Контакт: {contact}\n"
         )
 
     if look_for_type == "student":
@@ -167,7 +204,31 @@ def query_matchmaker(search_context: str, look_for_type: str, filename: str = DB
         f'Входящий {query_label}: """{search_context}"""\n\n'
         "ЗАДАЧА: Выбери топ-1 или топ-2 лучших совпадения из предоставленной базы данных. "
         "Для каждого выбранного совпадения напиши короткое, убедительное предложение-обоснование "
-        "(почему это идеальный мэтч). Отвечай вежливо, профессионально, на русском языке."
+        "(почему это идеальный мэтч). "
+        "ОБЯЗАТЕЛЬНО для каждого совпадения добавь отдельную строку: "
+        "«📞 Средство связи: <значение из поля Контакт базы>». "
+        "Отвечай вежливо, профессионально, на русском языке."
     )
 
-    return _ask_giga([{"role": "user", "content": hr_prompt}])
+    reply = _ask_giga([{"role": "user", "content": hr_prompt}])
+
+    # =====================================================
+    # Надёжно дописываем контакты СЕРВЕРОМ (не надеемся на нейросеть)
+    # =====================================================
+    contact_lines = []
+    for item in target_pool:
+        data = item.get("extracted_data", {})
+        name = (data.get("name_or_title") or "").strip()
+        contact = item.get("contact") or data.get("contact") or ""
+        if not name or not contact:
+            continue
+
+        # упомянул ли ИИ этого кандидата в ответе (по имени или первому слову)
+        first_word = name.split()[0].lower() if name.split() else ""
+        if name.lower() in reply.lower() or (first_word and first_word in reply.lower()):
+            contact_lines.append(f"📞 {name}: {contact}")
+
+    if contact_lines:
+        reply += "\n\nКонтакты кандидатов:\n" + "\n".join(contact_lines)
+
+    return reply

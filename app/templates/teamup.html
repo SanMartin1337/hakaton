@@ -46,12 +46,16 @@
                         <div class="mentor-field">
                             <label for="studentText">Расскажи о себе и своих навыках</label>
                             <textarea id="studentText" rows="4" placeholder="Например: Я Аня, отлично владею Figma, собираю адаптивные веб-интерфейсы и готовлю презентации для защиты."></textarea>
+                            <p class="mentor-bio" style="margin-top: 4px;">
+                                Укажи средство связи, чтобы тимлид мог написать тебе: @username, email или телефон.
+                            </p>
                         </div>
                         <button id="saveSkillsBtn" class="profile-btn secondary">Сохранить в базу TeamUp</button>
                         <div id="savedProfile" class="teamup-saved" style="display:none;">
                             <h4 id="savedName"></h4>
                             <div id="savedSkills" class="mentor-skills"></div>
                             <p id="savedSummary" class="mentor-bio"></p>
+                            <p id="savedContact" class="mentor-bio" style="font-weight: 600;"></p>
                         </div>
                     </div>
                 </section>
@@ -157,6 +161,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const p = data.profile.extracted_data || {};
             document.getElementById('savedName').textContent = p.name_or_title || '';
             document.getElementById('savedSummary').textContent = p.summary_description || '';
+            const contact = data.profile.contact || '';
+            document.getElementById('savedContact').textContent = contact ? (' Средство связи: ' + contact) : '⚠️ Средство связи не распознано — добавь @username в текст';
             const skillsBox = document.getElementById('savedSkills');
             skillsBox.innerHTML = '';
             (p.core_skills_or_needs || []).forEach(function (s) {

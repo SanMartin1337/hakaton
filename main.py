@@ -683,6 +683,10 @@ async def teamup_register(request: Request, db: Session = Depends(get_db)):
     if forced_user_type in ["student", "project_leader"]:
         profile["user_type"] = forced_user_type
 
+    # Средство связи: сначала надёжный regex по исходному тексту,
+    # если не нашёл — берём то, что распознал GigaChat
+    contact = teamup.extract_contact(text) or str(profile.get("contact", "") or "").strip()
+    profile["contact"] = contact
     profile["user_id"] = current_user.id
     profile["email"] = current_user.email
 
