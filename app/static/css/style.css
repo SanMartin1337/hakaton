@@ -3375,3 +3375,28 @@ body {
     background: rgba(239, 68, 68, 0.12);
     color: #dc2626;
 }
+/* Иконка Telegram канала в верхней панели */
+.telegram-channel-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #2AABEE;
+    color: #fff !important;
+    margin: 0 10px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(42, 171, 238, 0.25);
+}
+.telegram-channel-btn:hover {
+    background: #229ED9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(42, 171, 238, 0.4);
+}
+.telegram-channel-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: #fff;
+    stroke: none;
+}
