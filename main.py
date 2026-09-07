@@ -15,6 +15,7 @@ from app.config import settings
 from fastapi import FastAPI, Request, Depends, HTTPException, status, Form
 from app.models.friend_request import FriendRequest
 from app.models.user import User
+from app.services import teamup
 # Создаем таблицы
 Base.metadata.create_all(bind=engine)
 
@@ -627,6 +628,89 @@ async def about_page(request: Request, db: Session = Depends(get_db)):
         "request": request,
         "user": current_user
     })
+
+# =========================================
+# TeamUp: ИИ-подбор команды
+# =========================================
+@app.get("/teamup")
+async def teamup_page(request: Request, db: Session = Depends(get_db)):
+    current_user = get_current_user_from_cookie(request, db)
+    if not current_user:
+        return RedirectResponse(url="/login", status_code=303)
+
+    records = teamup.get_db_records()
+    my_profile = next((r for r in records if r.get("user_id") == current_user.id), None)
+
+    return templates.TemplateResponse("teamup.html", {
+        "request": request,
+        "user": current_user,
+        "my_profile": my_profile,
+        "db_count": len(records),
+    })
+
+
+@app.post("/api/v1/teamup/register")
+async def teamup_register(request: Request, db: Session = Depends(get_db)):
+    current_user = get_current_user_from_cookie(request, db)
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Не авторизован")
+
+    body = await request.json()
+    text = (body.get("text") or "").strip()
+    forced_user_type = body.get("user_type")
+
+    if not text:
+        parts = [current_user.full_name or ""]
+        if current_user.mentor_skills:
+            parts.append(f"Мои навыки: {current_user.mentor_skills}")
+        if current_user.mentor_bio:
+            parts.append(current_user.mentor_bio)
+        text = ". ".join(p for p in parts if p)
+
+    try:
+        profile = teamup.extract_profile_to_dict(text)
+    except Exception as e:
+        print(f"🚨 TeamUp register error: {type(e).__name__}: {e}")
+        raise HTTPException(status_code=502, detail=f"Ошибка GigaChat: {type(e).__name__}: {e}")
+
+    if "error" in profile:
+        raise HTTPException(
+            status_code=502,
+            detail="GigaChat вернул не JSON: " + str(profile.get("raw", ""))[:200]
+        )
+
+    # ВАЖНО: если форма сказала, что это студент — жёстко ставим student
+    if forced_user_type in ["student", "project_leader"]:
+        profile["user_type"] = forced_user_type
+
+    profile["user_id"] = current_user.id
+    profile["email"] = current_user.email
+
+    teamup.save_profile_to_db(profile)
+
+    return {"status": "ok", "profile": profile}
+
+
+@app.post("/api/v1/teamup/match")
+async def teamup_match(request: Request, db: Session = Depends(get_db)):
+    current_user = get_current_user_from_cookie(request, db)
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Не авторизован")
+
+    body = await request.json()
+    search_context = (body.get("search_context") or "").strip()
+    look_for_type = body.get("look_for_type", "student")
+
+    if not search_context:
+        raise HTTPException(status_code=400, detail="Пустой поисковый запрос")
+
+    try:
+        reply = teamup.query_matchmaker(search_context=search_context, look_for_type=look_for_type)
+    except Exception as e:
+        print(f"🚨 TeamUp match error: {type(e).__name__}: {e}")
+        raise HTTPException(status_code=502, detail=f"Ошибка GigaChat: {type(e).__name__}: {e}")
+
+    return {"status": "ok", "reply": reply}
 # =========================================
 # Запуск
 # =========================================

@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}TeamUp — Campus Connect{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <aside class="dashboard-sidebar">
+        <div class="sidebar-brand">
+            <svg class="brand-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 21h18M5 21V7l8-4 8 4v14M13 21v-8a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v8"/>
+            </svg>
+            <span class="brand-text">CAMPUS CONNECT</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>Главная</span></a>
+            <a href="/people" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Люди</span></a>
+            <a href="/mentors" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 0 0-5 5c0 2.5 1.6 4 2.5 5.5S12 16 12 16s2.1-1.5 2.5-3.5S17 9.5 17 7a5 5 0 0 0-5-5z"/><path d="M8 21h8"/><path d="M12 16v5"/></svg><span>Менторы</span></a>
+            <a href="/friends" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg><span>Друзья</span></a>
+            <a href="/projects" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg><span>Проекты</span></a>
+            <a href="/events" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>События</span></a>
+            <a href="/teamup" class="nav-item active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg><span>TeamUp</span></a>
+            <a href="/profile" class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83l-1.2 1.2a1.65 1.65 0 0 1-1.82.33H9a1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 4.6 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82V9a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .9.7 1.6 1.5 1.8H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Профиль</span></a>
+        </nav>
+    </aside>
+
+    <main class="dashboard-main">
+        <div class="welcome-section-modern">
+            <div class="welcome-content">
+                <div class="welcome-greeting">
+                    <h1>UrFU TeamUp — <span class="gradient-text">ИИ-подбор команды</span></h1>
+                    <p class="welcome-subtitle">Студент рассказывает о скиллах — ИИ сохраняет профиль в базу. Тимлид описывает задачу — ИИ подбирает лучших. В базе: {{ db_count }} профилей</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-column">
+                <section class="modern-card">
+                    <div class="card-header-modern">
+                        <div class="card-title-wrapper">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <h3>Я студент: мои скиллы</h3>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="mentor-field">
+                            <label for="studentText">Расскажи о себе и своих навыках</label>
+                            <textarea id="studentText" rows="4" placeholder="Например: Я Аня, отлично владею Figma, собираю адаптивные веб-интерфейсы и готовлю презентации для защиты."></textarea>
+                        </div>
+                        <button id="saveSkillsBtn" class="profile-btn secondary">Сохранить в базу TeamUp</button>
+                        <div id="savedProfile" class="teamup-saved" style="display:none;">
+                            <h4 id="savedName"></h4>
+                            <div id="savedSkills" class="mentor-skills"></div>
+                            <p id="savedSummary" class="mentor-bio"></p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="dashboard-column">
+                <section class="modern-card">
+                    <div class="card-header-modern">
+                        <div class="card-title-wrapper">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <h3>Я тимлид: ищу студентов</h3>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="mentor-field">
+                            <label for="leadText">Опиши проект и кого ищешь</label>
+                            <textarea id="leadText" rows="4" placeholder="Например: Мы делаем интерактивную карту для кампуса Новокольцовский. Срочно ищем человека, который нарисует UI в Figma!"></textarea>
+                        </div>
+                        <button id="matchStudentsBtn" class="profile-btn secondary">Подобрать студентов</button>
+                    </div>
+                </section>
+
+                <section class="modern-card">
+                    <div class="card-header-modern">
+                        <div class="card-title-wrapper">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                            <h3>Я студент: ищу команду</h3>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="mentor-field">
+                            <label for="studentSearchText">Опиши себя и свои навыки</label>
+                            <textarea id="studentSearchText" rows="3" placeholder="Например: владею Python и SQL, хочу участвовать в проекте по анализу данных"></textarea>
+                        </div>
+                        <button id="matchTeamsBtn" class="profile-btn secondary">Подобрать проект</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <section class="modern-card" id="matchResultCard" style="display:none; margin-top: 24px;">
+            <div class="card-header-modern">
+                <div class="card-title-wrapper">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"/></svg>
+                    <h3>Рекомендации ИИ</h3>
+                </div>
+            </div>
+            <div class="card-content">
+                <div id="matchResult" class="teamup-result"></div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<style>
+.teamup-result { white-space: pre-wrap; line-height: 1.6; font-size: 14px; }
+.teamup-saved { margin-top: 14px; padding: 12px 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; }
+.teamup-saved h4 { margin: 0 0 6px 0; }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const resultCard = document.getElementById('matchResultCard');
+    const resultBox = document.getElementById('matchResult');
+
+    function showResult(text) {
+        resultBox.innerText = text;
+        resultCard.style.display = 'block';
+        resultCard.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+    }
+
+    function setLoading(btn, loading, defaultText) {
+        btn.disabled = loading;
+        btn.textContent = loading ? 'ИИ думает...' : defaultText;
+    }
+
+    // 1) Студент сохраняет скиллы в JSON-базу
+    const saveBtn = document.getElementById('saveSkillsBtn');
+    saveBtn.addEventListener('click', async function () {
+        const text = document.getElementById('studentText').value.trim();
+        setLoading(saveBtn, true, 'Сохранить в базу TeamUp');
+        try {
+            const res = await fetch('/api/v1/teamup/register', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                credentials: 'include',
+                body: JSON.stringify({
+                text: text,
+                user_type: 'student'
+            })
+            });
+            const rawText = await res.text();
+            let data;
+            try {
+                data = JSON.parse(rawText);
+            } catch (e) {
+                throw new Error('Сервер вернул не JSON (' + res.status + '): ' + rawText.slice(0, 150));
+            }
+            if (!res.ok) throw new Error(data.detail || 'Ошибка сервера ' + res.status);
+
+            const p = data.profile.extracted_data || {};
+            document.getElementById('savedName').textContent = p.name_or_title || '';
+            document.getElementById('savedSummary').textContent = p.summary_description || '';
+            const skillsBox = document.getElementById('savedSkills');
+            skillsBox.innerHTML = '';
+            (p.core_skills_or_needs || []).forEach(function (s) {
+                const span = document.createElement('span');
+                span.className = 'skill-tag';
+                span.textContent = s;
+                skillsBox.appendChild(span);
+            });
+            document.getElementById('savedProfile').style.display = 'block';
+        } catch (e) {
+            alert('Ошибка: ' + e.message);
+        } finally {
+            setLoading(saveBtn, false, 'Сохранить в базу TeamUp');
+        }
+    });
+
+    // 2) и 3) Мэтчинг через GigaChat
+    function bindMatch(btnId, textareaId, lookFor, defaultText) {
+        const btn = document.getElementById(btnId);
+        btn.addEventListener('click', async function () {
+            const context = document.getElementById(textareaId).value.trim();
+            if (!context) { alert('Сначала заполни описание.'); return; }
+            setLoading(btn, true, defaultText);
+            try {
+                const res = await fetch('/api/v1/teamup/match', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include',
+                    body: JSON.stringify({search_context: context, look_for_type: lookFor})
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.detail || 'Ошибка сервера');
+                showResult(data.reply);
+            } catch (e) {
+                alert('Ошибка: ' + e.message);
+            } finally {
+                setLoading(btn, false, defaultText);
+            }
+        });
+    }
+
+    bindMatch('matchStudentsBtn', 'leadText', 'student', 'Подобрать студентов');
+    bindMatch('matchTeamsBtn', 'studentSearchText', 'project_leader', 'Подобрать проект');
+});
+</script>
+{% endblock %}

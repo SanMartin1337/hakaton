@@ -1,0 +1,15 @@
+    [
+    {
+        "user_type": "student",
+        "extracted_data": {
+            "name_or_title": "Андрей",
+            "core_skills_or_needs": [
+                "C++",
+                "C#"
+            ],
+            "summary_description": "Отлично владеет C++ и C#"
+        },
+        "user_id": 1,
+        "email": "proverka2@urfu.ru"
+    }
+]
