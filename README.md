@@ -31,7 +31,7 @@
 
 ### Авторизация и регистрация
 <p align="center">
-  <img src="docs/gifs/auth.gif" width="700" alt="Login demo">
+  <img src="docs/gifs/auth.gif" width="400" alt="Login demo">
 </p>
 
 ### Лента событий и избранное
