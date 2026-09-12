@@ -7,7 +7,7 @@
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0-D71F00?logo=sqlalchemy&logoColor=white)](https://www.sqlalchemy.org/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 
 </div>
 
@@ -30,19 +30,29 @@
 ## 🎬 Демонстрация
 
 ### Авторизация и регистрация
-![Login demo](docs/gifs/auth.gif)
+<p align="center">
+  <img src="docs/gifs/auth.gif" width="700" alt="Login demo">
+</p>
 
 ### Лента событий и избранное
-![Events demo](docs/gifs/events.gif)
+<p align="center">
+  <img src="docs/gifs/events.gif" width="700" alt="Events demo">
+</p>
 
 ### Друзья и заявки
-![Friends demo](docs/gifs/friends.gif)
+<p align="center">
+  <img src="docs/gifs/friends.gif" width="700" alt="Friends demo">
+</p>
 
 ### Менторская программа
-![Mentors demo](docs/gifs/mentors.gif)
+<p align="center">
+  <img src="docs/gifs/mentors.gif" width="700" alt="Mentors demo">
+</p>
 
 ### TeamUp — ИИ-подбор команды
-![TeamUp demo](docs/gifs/teamup.gif)
+<p align="center">
+  <img src="docs/gifs/teamup.gif" width="700" alt="TeamUp demo">
+</p>
 
 ---
 
