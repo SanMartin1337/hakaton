@@ -1,16 +1,30 @@
 [
     {
         "user_type": "student",
+        "contact": "@makro1337",
         "extracted_data": {
-            "name_or_title": "Эльдар",
+            "name_or_title": "Максим",
             "core_skills_or_needs": [
                 "Python",
+                "С++",
                 "FastAPI"
             ],
-            "summary_description": "Проектный лидер, использующий Python и FastAPI"
+            "summary_description": ""
         },
-        "contact": "@makro1337",
+        "user_id": 2,
+        "email": "proverka2@mail.ru"
+    },
+    {
+        "user_type": "student",
+        "contact": "@gggg",
+        "extracted_data": {
+            "name_or_title": "Никита",
+            "core_skills_or_needs": [
+                "английский"
+            ],
+            "summary_description": ""
+        },
         "user_id": 1,
-        "email": "proverka2@urfu.ru"
+        "email": "proverka@urfu.ru"
     }
 ]
