@@ -26,5 +26,20 @@
         },
         "user_id": 1,
         "email": "proverka@urfu.ru"
+    },
+    {
+        "user_type": "student",
+        "contact": "@makro1337",
+        "extracted_data": {
+            "name_or_title": "андрей",
+            "core_skills_or_needs": [
+                "java",
+                "c++",
+                "pascal"
+            ],
+            "summary_description": ""
+        },
+        "user_id": 3,
+        "email": "proverka22@urfu.ru"
     }
 ]

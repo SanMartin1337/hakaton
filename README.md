@@ -14,6 +14,7 @@
 ---
 
 ##  О проекте
+**!ПРОЕКТ БЫЛ ВЫПОЛНЕН В РАМКАХ ХАКАТОНА!**
 
 **Campus Connect** — веб-платформа для студентов УрФУ, которая закрывает сразу несколько задач:
 
@@ -31,27 +32,27 @@
 
 ### Авторизация и регистрация
 <p align="center">
-  <img src="docs/gifs/auth.gif" width="400" alt="Login demo">
+  <img src="docs/gifs/auth.gif" width="200" alt="Login demo">
 </p>
 
 ### Лента событий и избранное
 <p align="center">
-  <img src="docs/gifs/events.gif" width="700" alt="Events demo">
+  <img src="docs/gifs/events.gif" width="500" alt="Events demo">
 </p>
 
 ### Друзья и заявки
 <p align="center">
-  <img src="docs/gifs/friends.gif" width="700" alt="Friends demo">
+  <img src="docs/gifs/friends.gif" width="500" alt="Friends demo">
 </p>
 
 ### Менторская программа
 <p align="center">
-  <img src="docs/gifs/mentors.gif" width="700" alt="Mentors demo">
+  <img src="docs/gifs/mentors.gif" width="500" alt="Mentors demo">
 </p>
 
 ### TeamUp — ИИ-подбор команды
 <p align="center">
-  <img src="docs/gifs/teamup.gif" width="700" alt="TeamUp demo">
+  <img src="docs/gifs/teamup.gif" width="500" alt="TeamUp demo">
 </p>
 
 ---
